@@ -11,22 +11,37 @@ export default class {
       headers: {'Authorization': `Client-ID ${this.clientId}`}
     });
 
-    this.routes = {
-      gallery: [
-        {name: 'section',   type: '/'},
-        {name: 'sort',      type: '/'},
-        {name: 'window',    type: '/'},
-        {name: 'page',      type: '/'},
-        {name: 'showViral', type: '&'},
-        {name: 'mature',    type: '&'},
-        {name: 'album_previews',  type: '&'},
-      ],
-    };
+    this.routes = [
+      {
+        // https://apidocs.imgur.com/#eff60e84-5781-4c12-926a-208dc4c7cc94
+        name: 'gallery',
+        url: 'gallery',
+        args: [
+          {name: 'section',         type: '/'},
+          {name: 'sort',            type: '/'},
+          {name: 'window',          type: '/'},
+          {name: 'page',            type: '/'},
+          {name: 'showViral',       type: '&'},
+          {name: 'mature',          type: '&'},
+          {name: 'album_previews',  type: '&'},
+        ]
+      },
+      {
+        // https://apidocs.imgur.com/#3c981acf-47aa-488f-b068-269f65aee3ce
+        name: 'gallerySearch',
+        url: 'gallery/search',
+        args: [
+          {name: 'sort',    type: '/'},
+          {name: 'window',  type: '/'},
+          {name: 'page',    type: '/'},
+          {name: 'cats',    type: '&'},
+        ]
+      },
+    ];
 
-    Object.keys(this.routes).map(key => {
-      this[key] = async (opts={}) => {
-        let args = this.routes[key];
-        let query = this.buildQuery(key, opts, args);
+    this.routes.map(route => {
+      this[route.name] = async (opts={}) => {
+        let query = this.buildQuery(route.url, opts, route.args);
         console.log('query:', query);
         return this.axios.get(query)
           .catch(this.errorHandler);
