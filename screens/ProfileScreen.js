@@ -8,6 +8,7 @@ import {
   Text,
 } from 'react-native';
 import ImageGrid from '../components/ImageGrid';
+import Imgur from '../api/Imgur';
 
 export default class HomeScreen extends React.Component {
 
