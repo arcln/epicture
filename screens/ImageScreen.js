@@ -1,9 +1,13 @@
 import React from 'react';
 import {
   StyleSheet,
+  Platform,
   View,
+  Dimensions,
 } from 'react-native';
-import Grid from 'react-native-grid-component';
+import AutoImage from 'react-native-auto-height-image';
+import ImageStats from '../components/ImageStats';
+import IconButton from '../components/IconButton';
 
 export default class ImageScreen extends React.Component {
 
@@ -14,49 +18,25 @@ export default class ImageScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Grid
-          style={styles.list}
-          renderItem={(data, i) => <View style={[{backgroundColor: data}, styles.item]} key={i} />}
-          // renderPlaceholder={_ => <Text>placeholder</Text>}
-          data={['black',]}
-          itemsPerRow={2}
+        <AutoImage
+          source={require('../assets/images/robot-prod.png')}
+          width={Dimensions.get('window').width}
         />
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={{paddingLeft: 10}}>
+            <ImageStats size={16} color='#000' />
+          </View>
+          <View style={{marginRight: 20}}>
+            <IconButton
+              size={30}
+              color='#000'
+              name={Platform.OS === 'ios' ? 'ios-heart-empty' : 'md-heart-empty'}
+            />
+          </View>
+        </View>
       </View>
     );
   }
-
-  // _maybeRenderDevelopmentModeWarning() {
-  //   if (__DEV__) {
-  //     const learnMoreButton = (
-  //       <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-  //         Learn more
-  //       </Text>
-  //     );
-
-  //     return (
-  //       <Text style={styles.developmentModeText}>
-  //         Development mode is enabled, your app will be slower but you can use useful development
-  //         tools. {learnMoreButton}
-  //       </Text>
-  //     );
-  //   } else {
-  //     return (
-  //       <Text style={styles.developmentModeText}>
-  //         You are not in development mode, your app will run at full speed.
-  //       </Text>
-  //     );
-  //   }
-  // }
-
-  // _handleLearnMorePress = () => {
-  //   WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  // };
-
-  // _handleHelpPress = () => {
-  //   WebBrowser.openBrowserAsync(
-  //     'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-  //   );
-  // };
 }
 
 const styles = StyleSheet.create({
@@ -64,12 +44,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  item: {
-    flex: 1,
-    height: 160,
-    margin: 1
-  },
-  list: {
-    flex: 1
+  image: {
+    width: '100%',
+    height: '40%',
   }
 });
