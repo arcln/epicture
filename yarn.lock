@@ -5484,12 +5484,17 @@ react-native-grid-component@^1.1.0:
   dependencies:
     prop-types "^15.5.10"
 
-"react-native-maps@github:expo/react-native-maps#v0.22.0-exp.0":
+react-native-maps@expo/react-native-maps#v0.22.0-exp.0:
   version "0.22.0"
   resolved "https://codeload.github.com/expo/react-native-maps/tar.gz/cb9d9ec23d4d176bddd6d465a583462f9c1056a0"
   dependencies:
     babel-plugin-module-resolver "^3.1.0"
     babel-preset-react-native "1.9.0"
+
+react-native-options-menu@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-options-menu/-/react-native-options-menu-2.0.2.tgz#ff4ed9a1ac0026e52097b33b3dd318fa14856564"
+  integrity sha512-aqufug1xxote2Oz9WTpoh/B4GTA1RZiF6Ba69yUZYyHvg7MdGnLVLMSA5fDRirF5EGCn2Ay+f9DExWf1DjQI6A==
 
 react-native-platform-touchable@^1.1.1:
   version "1.1.1"

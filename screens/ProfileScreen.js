@@ -2,6 +2,7 @@ import React from 'react';
 import {
   StyleSheet,
   View,
+  ScrollView,
   Button,
   Image,
   Text,
@@ -19,13 +20,9 @@ export default class HomeScreen extends React.Component {
     )
   };
 
-  componentDidMount() {
-    this.props.navigation.setParams({title: 'tes'});
-  }
-
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={[styles.accountInfoContainer, {flexDirection: 'row'}]}>
           <View style={[styles.profileContainer, {flex: 2, flexDirection: 'row', justifyContent: 'center'}]}>
             <Image
@@ -39,44 +36,13 @@ export default class HomeScreen extends React.Component {
           </View>
         </View>
         <View style={{flex: 1}}>
-          <ImageGrid />
+          <ImageGrid
+            itemPressed={() => this.props.navigation.navigate('Image')}
+          />
         </View>
-      </View >
+      </ScrollView>
     );
   }
-
-  // _maybeRenderDevelopmentModeWarning() {
-  //   if (__DEV__) {
-  //     const learnMoreButton = (
-  //       <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-  //         Learn more
-  //       </Text>
-  //     );
-
-  //     return (
-  //       <Text style={styles.developmentModeText}>
-  //         Development mode is enabled, your app will be slower but you can use useful development
-  //         tools. {learnMoreButton}
-  //       </Text>
-  //     );
-  //   } else {
-  //     return (
-  //       <Text style={styles.developmentModeText}>
-  //         You are not in development mode, your app will run at full speed.
-  //       </Text>
-  //     );
-  //   }
-  // }
-
-  // _handleLearnMorePress = () => {
-  //   WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  // };
-
-  // _handleHelpPress = () => {
-  //   WebBrowser.openBrowserAsync(
-  //     'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-  //   );
-  // };
 }
 
 const styles = StyleSheet.create({
@@ -86,7 +52,7 @@ const styles = StyleSheet.create({
     // maxHeight: 140,
   },
   accountInfoContainer: {
-    // backgroundColor: '#fff',
+    backgroundColor: '#fff',
     // backgroundColor: 'red',
   },
   profileContainer: {

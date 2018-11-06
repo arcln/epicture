@@ -6,10 +6,14 @@ import {
 
 import ImageGrid from '../components/ImageGrid';
 
-export default class HomeScreen extends React.Component {
+export default class FeedScreen extends React.Component {
 
-  static navigationOptions = {
-    title: 'Trending',
+  static navigationOptions = ({navigation}) => ({
+    title: `${navigation.state.params && navigation.state.params.title || 'Feed'}`,
+  });
+
+  sortBy = key => {
+    this.props.navigation.setParams({title: key});
   };
 
   render() {
@@ -17,6 +21,8 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ImageGrid
           itemPressed={() => this.props.navigation.navigate('Image')}
+          sortOptions={['Popular', 'Trending', 'Newest', 'Cancel']}
+          onSort={this.sortBy}
         />
       </View>
     );

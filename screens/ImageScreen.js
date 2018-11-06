@@ -1,10 +1,7 @@
 import React from 'react';
 import {
-  Image,
   StyleSheet,
   View,
-  Button,
-  Text,
 } from 'react-native';
 import Grid from 'react-native-grid-component';
 

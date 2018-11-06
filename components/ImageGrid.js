@@ -4,8 +4,13 @@ import {
   StyleSheet,
   TouchableHighlight,
   View,
+  ScrollView,
   Image,
+  Text,
 } from 'react-native';
+import OptionsMenu from 'react-native-options-menu';
+import Colors from '../constants/Colors';
+import {Icon} from 'expo';
 
 export default class ImageGrid extends React.Component {
 
@@ -19,7 +24,25 @@ export default class ImageGrid extends React.Component {
 
   render() {
     return (
-      <View style={styles.gridContainer}>
+      <ScrollView style={styles.gridContainer}>
+        {this.props.sortOptions ? (
+          <View style={{flexDirection: 'row', justifyContent: 'flex-end', padding: 10}}>
+            <OptionsMenu
+              options={this.props.sortOptions}
+              customButton={(
+                <View style={{flexDirection: 'row'}}>
+                  <Icon.Ionicons name='ios-arrow-down' style={{color: Colors.tintColor, paddingTop: 3}} />
+                  <Text style={{color: Colors.tintColor}}> Sort</Text>
+                </View>
+              )}
+              actions={[
+                this.props.onSort && this.props.onSort.bind(this, 'Popular') || (_ => null),
+                this.props.onSort && this.props.onSort.bind(this, 'Trending') || (_ => null),
+                this.props.onSort && this.props.onSort.bind(this, 'Newest') || (_ => null),
+                _ => null
+              ]} />
+          </View>
+        ) : null}
         <Grid
           style={styles.list}
           renderItem={this.renderItem}
@@ -32,7 +55,7 @@ export default class ImageGrid extends React.Component {
             'black', 'yellow', 'red', 'green', 'blue',]}
           itemsPerRow={3}
         />
-      </View>
+      </ScrollView>
     );
   }
 }
