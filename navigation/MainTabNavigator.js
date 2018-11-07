@@ -9,6 +9,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import ImageScreen from '../screens/ImageScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import SearchScreen from '../screens/SearchScreen';
 // import SettingsScreen from '../screens/SettingsScreen';
 
 const createTabLabel = (iconName, size, padding) => ({
@@ -63,13 +64,19 @@ const UploadStack = createStackNavigator({
 UploadStack.navigationOptions = createTabLabel('add-circle-outline', 34, 5);
 
 const SearchStack = createStackNavigator({
+  Search: {
+    screen: SearchScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Image: ImageScreen,
   Profile: {
     screen: ProfileScreen,
     navigationOptions: {
       header: null,
     },
   },
-  // Image: ImageScreen,
 });
 
 SearchStack.navigationOptions = createTabLabel('search');
@@ -112,5 +119,4 @@ export default createBottomTabNavigator({
   UploadStack,
   ProfileStack,
   SearchStack,
-  // SettingsStack,
 });
