@@ -23,6 +23,8 @@
     "react-native-auto-height-image": "^1.0.5",
     "react-native-grid-component": "^1.1.0",
     "react-native-options-menu": "^2.0.2",
+    "react-native-status-bar-height": "^2.1.0",
+    "react-native-svg-uri": "^1.2.3",
     "react-navigation": "^2.18.2"
   },
   "devDependencies": {

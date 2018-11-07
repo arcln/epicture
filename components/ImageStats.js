@@ -17,7 +17,7 @@ export default class ImageStats extends React.Component {
             name={Platform.OS === 'ios' ? 'ios-arrow-round-up' : 'md-arrow-round-up'}
           />
           <View style={{justifyContent: 'center', paddingLeft: 5}}>
-            <Text style={{fontSize: this.props.size, color: this.props.color}}>342</Text>
+            <Text style={{fontSize: this.props.size, color: this.props.color}}>{this.props.data.ups || 0}</Text>
           </View>
         </View>
         <View style={{paddingLeft: 10, flexDirection: 'row'}}>
@@ -27,7 +27,7 @@ export default class ImageStats extends React.Component {
             name={Platform.OS === 'ios' ? 'ios-arrow-round-down' : 'md-arrow-round-down'}
           />
           <View style={{justifyContent: 'center', paddingLeft: 5}}>
-            <Text style={{fontSize: this.props.size, color: this.props.color}}>6</Text>
+            <Text style={{fontSize: this.props.size, color: this.props.color}}>{this.props.data.downs || 0}</Text>
           </View>
         </View>
         <View style={{paddingLeft: 10, paddingRight: 5, flexDirection: 'row'}}>
@@ -39,7 +39,7 @@ export default class ImageStats extends React.Component {
             />
           </View>
           <View style={{justifyContent: 'center', paddingLeft: 6}}>
-            <Text style={{fontSize: this.props.size, color: this.props.color}}>2735</Text>
+            <Text style={{fontSize: this.props.size, color: this.props.color}}>{this.props.data.views || 0}</Text>
           </View>
         </View>
       </View>

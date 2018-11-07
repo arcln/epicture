@@ -11,10 +11,10 @@ export default class {
       headers: {'Authorization': `Client-ID ${this.clientId}`}
     });
 
-    let sortWindowPageFilters =  [
-      {name: 'sort',    type: '/'},
-      {name: 'window',  type: '/'},
-      {name: 'page',    type: '/'},
+    let sortWindowPageFilters = [
+      {name: 'sort', type: '/'},
+      {name: 'window', type: '/'},
+      {name: 'page', type: '/'},
     ];
 
     this.routes = [
@@ -22,11 +22,11 @@ export default class {
         name: 'gallery',
         url: 'gallery',
         args: [
-          {name: 'section',         type: '/'},
+          {name: 'section', type: '/'},
           ...sortWindowPageFilters,
-          {name: 'showViral',       type: '&'},
-          {name: 'mature',          type: '&'},
-          {name: 'album_previews',  type: '&'},
+          {name: 'showViral', type: '&'},
+          {name: 'mature', type: '&'},
+          {name: 'album_previews', type: '&'},
         ]
       },
       { // https://apidocs.imgur.com/#3c981acf-47aa-488f-b068-269f65aee3ce
@@ -62,7 +62,7 @@ export default class {
     ];
 
     this.routes.map(route => {
-      this[route.name] = async (opts={}) => {
+      this[route.name] = async (opts = {}) => {
         let query = this.buildQuery(route.url, opts, route.args);
         console.log('query:', query);
         return this.axios.get(query)
@@ -75,7 +75,7 @@ export default class {
     let secondaryArgsType = '?';
     let suffix = args.map(arg => {
       if (!Object.keys(opts).includes(arg.name))
-          return null;
+        return null;
 
       let opt = opts[arg.name];
       switch (arg.type) {

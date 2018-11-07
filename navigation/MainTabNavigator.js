@@ -6,55 +6,88 @@ import {
 import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import MostViralScreen from '../screens/MostViralScreen';
+import HomeScreen from '../screens/HomeScreen';
 import ImageScreen from '../screens/ImageScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import UserSubmittedScreen from '../screens/UserSubmittedScreen';
 // import SettingsScreen from '../screens/SettingsScreen';
 
-const createTabLabel = iconName => ({
+const createTabLabel = (iconName, size, padding) => ({
   tabBarLabel: ' ',
   tabBarIcon: ({focused}) => (
-    <View style={{paddingTop: 10}}>
+    <View style={{paddingTop: padding || 10}}>
       <TabBarIcon
         focused={focused}
         name={Platform.OS === 'ios' ? `ios-${iconName}` : `md-${iconName}`}
+        size={size}
       />
     </View>
   ),
 });
 
-const MostViralStack = createStackNavigator({
-  MostViral: MostViralScreen,
+const HomeStack = createStackNavigator({
+  Home: HomeScreen,
   Image: ImageScreen,
+  Profile: {
+    screen: ProfileScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
 });
 
-MostViralStack.navigationOptions = createTabLabel('trending-up');
+HomeStack.navigationOptions = createTabLabel('paper', 25);
 
-const UserSubmittedStack = createStackNavigator({
-  UserSubmitted: UserSubmittedScreen,
+const ExploreStack = createStackNavigator({
+  Explore: HomeScreen,
   Image: ImageScreen,
+  Profile: {
+    screen: ProfileScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
 });
 
-UserSubmittedStack.navigationOptions = createTabLabel('compass');
+ExploreStack.navigationOptions = createTabLabel('compass');
 
 const UploadStack = createStackNavigator({
-  Profile: ProfileScreen,
+  Profile: {
+    screen: ProfileScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
   // Image: ImageScreen,
 });
 
-UploadStack.navigationOptions = createTabLabel('add-circle-outline');
+UploadStack.navigationOptions = createTabLabel('add-circle-outline', 34, 5);
 
 const SearchStack = createStackNavigator({
-  Profile: ProfileScreen,
+  Profile: {
+    screen: ProfileScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
   // Image: ImageScreen,
 });
 
 SearchStack.navigationOptions = createTabLabel('search');
 
 const ProfileStack = createStackNavigator({
-  Profile: ProfileScreen,
+  Profile: {
+    screen: ProfileScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
   Image: ImageScreen,
+  Profile: {
+    screen: ProfileScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
 });
 
 ProfileStack.navigationOptions = createTabLabel('contact');
@@ -74,8 +107,8 @@ ProfileStack.navigationOptions = createTabLabel('contact');
 // };
 
 export default createBottomTabNavigator({
-  MostViralStack,
-  UserSubmittedStack,
+  HomeStack,
+  ExploreStack,
   UploadStack,
   ProfileStack,
   SearchStack,
