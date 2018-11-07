@@ -59,6 +59,12 @@ export default class {
         url: suffix => `gallery${suffix}/tags`,
         args: [{name: 'galleryHash', type: '/'}]
       },
+      { // https://apidocs.imgur.com/#c94c8719-fe68-4854-b96d-70735dd8b2bc
+        // FIXME not tested
+        name: 'account',
+        url: 'account',
+        args: [{name: 'username', type: '/'}]
+      },
     ];
 
     this.routes.map(route => {
