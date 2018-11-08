@@ -15,6 +15,7 @@ import ImageGrid from '../components/ImageGrid';
 import Imgur from '../api/Imgur';
 import IconButton from '../components/IconButton';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import { AuthSession } from 'expo';
 
 export default class ProfileScreen extends React.Component {
 
@@ -32,22 +33,27 @@ export default class ProfileScreen extends React.Component {
 
   async componentDidMount() {
     this.props.navigation.setParams({title: 'Most viral'});
+    await this.initImgur();
     const res = await this.imgur.gallery({section: 'hot'});
     this.setState({data: res.data.data});
     this.navListener = this.props.navigation.addListener('didFocus', () => {
       StatusBar.setBarStyle('light-content');
     });
+  }
 
+  async initImgur() {
     let redirectUrl = encodeURIComponent(AuthSession.getRedirectUrl());
-    let user = await AuthSession.startAsync({
-      authUrl:
-        `https://api.imgur.com/oauth2/authorize?response_type=token` +
-        `&client_id=7425ab7bf4551fb` +
-        `&redirect_uri=${redirectUrl}`,
-    }).params;
+    let user = (await AuthSession.startAsync({
+        authUrl:
+          `https://api.imgur.com/oauth2/authorize?response_type=token` +
+          `&client_id=7425ab7bf4551fb` +
+          `&redirect_uri=${redirectUrl}`,
+      })).params;
 
     console.log('user-------------------->', user)
     this.imgur = new Imgur('7425ab7bf4551fb', '252ae82a53d00c6a14e3629dd7f6e3983a7e7b18', user.access_token);
+    let accountImages = await this.imgur.accountImages();
+    console.log(accountImages.data.data);
   }
 
   componentWillUnmount() {
