@@ -1,15 +1,13 @@
 import axios from 'axios';
+import { AuthSession } from 'expo';
 
 export default class {
-  constructor(clientId, clientSecret, errorHandler) {
+
+  constructor(clientId, clientSecret, userToken, errorHandler) {
     this.clientId = clientId;
     this.clientSecret = clientSecret;
     this.errorHandler = errorHandler || (e => console.error(JSON.stringify(e.response.data)));
-    this.axios = axios.create({
-      baseURL: 'https://api.imgur.com/3',
-      timeout: 1000,
-      headers: {'Authorization': `Client-ID ${this.clientId}`}
-    });
+    this.initAxios(userToken);
 
     let sortWindowPageFilters = [
       {name: 'sort', type: '/'},
@@ -74,6 +72,19 @@ export default class {
         return this.axios.get(query)
           .catch(this.errorHandler);
       };
+    });
+  }
+
+  initAxios(token=null) {
+    let headers = {'Authorization': `Client-ID ${this.clientId}`};
+
+    if (token)
+      headers.Bearer = token;
+
+    this.axios = axios.create({
+      baseURL: 'https://api.imgur.com/3',
+      timeout: 1000,
+      headers: headers
     });
   }
 
