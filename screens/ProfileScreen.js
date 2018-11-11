@@ -55,7 +55,7 @@ export default class ProfileScreen extends React.Component {
               <View style={{flex: 1, flexDirection: 'row'}}>
                 <View style={{flex: 4, justifyContent: 'center', paddingLeft: 20}}>
                   <View style={{flexDirection: 'row', justifyContent: 'center', textAlign: 'center'}}>
-                    <Text onPress={() => console.log('ok')} style={styles.accountName}>@{this.state.user}</Text>
+                    <Text style={styles.accountName}>@{this.state.user}</Text>
                   </View>
                   <View style={{flexDirection: 'row', justifyContent: 'center', textAlign: 'center'}}>
                     <Text style={styles.accountEmail}>256,332 points - Glorious</Text>
@@ -86,6 +86,7 @@ export default class ProfileScreen extends React.Component {
             data={this.state.data}
             itemPressed={(_, data) => this.props.navigation.push('Image', {data})}
             disableRowSizeSelect={true}
+            itemsPerRow={2}
           />
         </View>
       </ScrollView >

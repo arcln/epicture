@@ -94,7 +94,7 @@ export default class extends ApiBuilder {
 
   getAuthUrl(redirectUrl) {
     return `https://api.imgur.com/oauth2/authorize?response_type=token` +
-            `&client_id=${this.clientId}` +
-            `&redirect_uri=${redirectUrl}`
+      `&client_id=${this.clientId}` +
+      `&redirect_uri=${redirectUrl}`
   }
 }

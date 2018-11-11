@@ -7,6 +7,7 @@ import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
+import ExploreScreen from '../screens/ExploreScreen';
 import ImageScreen from '../screens/ImageScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -39,7 +40,7 @@ const HomeStack = createStackNavigator({
 HomeStack.navigationOptions = createTabLabel('paper', 25);
 
 const ExploreStack = createStackNavigator({
-  Explore: HomeScreen,
+  Explore: ExploreScreen,
   Image: ImageScreen,
   Profile: {
     screen: ProfileScreen,

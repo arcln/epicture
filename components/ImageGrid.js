@@ -14,21 +14,52 @@ import OptionsMenu from 'react-native-options-menu';
 import Colors from '../constants/Colors';
 import {Icon} from 'expo';
 import ImageStats from '../components/ImageStats';
+import ContentLoader from 'react-native-content-loader';
+import {Circle, Rect} from 'react-native-svg';
+import AsyncImage from '../components/AsyncImage';
 
 export default class ImageGrid extends React.Component {
 
   state = {
-    itemPerRow: 2,
+    itemPerRow: this.props.itemsPerRow,
+    itemWidth: Dimensions.get('window').width / this.props.itemsPerRow,
+    displayedData: [],
   };
+
+  componentWillReceiveProps = (props) => {
+    this.setState({
+      displayedData: props.data.filter(e => {
+        const ext = e.images && e.images[0].link.substr(e.images[0].link.lastIndexOf('.'));
+        return ['.jpg', '.png', '.gif'].includes(ext);
+      }).slice(0, 10),
+    });
+  };
+
+  viewScrolled = e => {
+    // console.log(e);
+  };
+
+  loader = (
+    <ContentLoader
+      height={this.state.itemWidth}
+      width={this.state.itemWidth}
+      speed={3}
+      primaryColor='#f3f3f3'
+      secondaryColor='#eee'
+    >
+      <Rect x='0' y='0' rx='5' ry='5' width={this.state.itemWidth} height={this.state.itemWidth} />
+    </ContentLoader>
+  );
 
   renderItem = (data, i) => (
     <TouchableHighlight key={i} onPress={() => this.props.itemPressed && this.props.itemPressed(i, data)}>
       <View>
-        <Image
+        <AsyncImage
           source={{uri: data.images[0].link}}
+          placeholder={this.loader}
           style={{
-            width: Dimensions.get('window').width / this.state.itemPerRow,
-            height: Dimensions.get('window').width / this.state.itemPerRow,
+            width: this.state.itemWidth,
+            height: this.state.itemWidth,
           }}
         />
         <View style={styles.stats}>
@@ -42,7 +73,7 @@ export default class ImageGrid extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.gridContainer}>
+      <ScrollView style={styles.gridContainer} onScroll={this.viewScrolled} scrollEventThrottle={0}>
         {!this.props.sortOptions && this.props.disableRowSizeSelect ? null : (
           <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignContent: 'center', padding: 10}}>
             {this.props.sortOptions ? (
@@ -59,9 +90,9 @@ export default class ImageGrid extends React.Component {
                     </View>
                   )}
                   actions={[
-                    this.props.onSort && this.props.onSort.bind(this, 'Popular') || (_ => null),
-                    this.props.onSort && this.props.onSort.bind(this, 'Trending') || (_ => null),
-                    this.props.onSort && this.props.onSort.bind(this, 'User submitted') || (_ => null),
+                    this.props.onSort && this.props.onSort.bind(null, this.props.sortOptions[0]) || (_ => null),
+                    this.props.onSort && this.props.onSort.bind(null, this.props.sortOptions[1]) || (_ => null),
+                    this.props.onSort && this.props.onSort.bind(null, this.props.sortOptions[2]) || (_ => null),
                     _ => null
                   ]} />
               </View>
@@ -91,7 +122,7 @@ export default class ImageGrid extends React.Component {
         )}
         <Grid
           renderItem={this.renderItem}
-          data={this.props.data.filter(e => e.images)}
+          data={this.state.displayedData}
           itemsPerRow={this.state.itemPerRow}
         />
       </ScrollView>
