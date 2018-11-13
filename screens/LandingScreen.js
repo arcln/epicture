@@ -3,11 +3,13 @@ import {
   StyleSheet,
   View,
   Button,
+  Text,
 } from 'react-native';
 import {AuthSession, LinearGradient} from 'expo';
 import User from '../api/User';
 import Imgur from '../api/Imgur';
 import ImgurConsts from '../constants/Imgur';
+import AutoImage from 'react-native-auto-height-image';
 
 export default class LandingScreen extends React.Component {
 
@@ -43,11 +45,21 @@ export default class LandingScreen extends React.Component {
         <LinearGradient
           colors={['#2e2e82', '#171544']}
           style={styles.container}>
-          <Button
-            onPress={() => this.login()}
-            title="Login with Imgur"
-            color="#1bb76e"
-          />
+          <View style={styles.greeting}>
+            <Text style={{color: '#fff'}}>Welcome to</Text>
+            <AutoImage
+              source={require('../assets/images/logo.png')}
+              width={300}
+              />
+          </View>
+          <View>
+            <Button
+              onPress={() => this.login()}
+              title="Login"
+              color="#1bb76e"
+              style={{flex: 5}}
+            />
+          </View>
         </LinearGradient>
       </View>
     );
@@ -57,7 +69,13 @@ export default class LandingScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
+  greeting: {
+    alignItems: 'center',
+    height: 300,
+    marginTop: 90,
+  }
 });
