@@ -33,7 +33,7 @@ export default class ProfileScreen extends React.Component {
 
   async componentDidMount() {
     this.props.navigation.setParams({title: 'Most viral'});
-    this.imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret, user.access_token);
+    this.imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret);
     const res = await this.imgur.gallery({section: 'hot'});
     this.setState({data: res.data.data});
     this.navListener = this.props.navigation.addListener('didFocus', () => {

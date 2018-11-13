@@ -82,8 +82,8 @@ export default class extends ApiBuilder {
     this.clientSecret = clientSecret;
     this.errorHandler = errorHandler || (e => console.error(JSON.stringify(e.response.data)));
     this.headers = this.getHeader('clientId');
-    this.token = userToken;
   }
+
   login(token) {
     this.token = token;
   }

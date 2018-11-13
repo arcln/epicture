@@ -11,6 +11,7 @@ export default class FeedScreen extends React.Component {
 
   state = {
     data: [],
+    user: {},
   }
 
   static navigationOptions = ({navigation}) => {
