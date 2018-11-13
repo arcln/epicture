@@ -6,7 +6,12 @@ export default class {
     this.clientId = clientId;
     this.clientSecret = clientSecret;
     this.errorHandler = errorHandler || (e => console.error(JSON.stringify(e.response.data)));
-    this.initAxios(userToken);
+    this.headers = this.getHeader('clientId');
+    this.token = userToken;
+    this.axios = axios.create({
+      baseURL: 'https://api.imgur.com',
+      timeout: 1000,
+    });
 
     let sortWindowPageFilters = [
       {name: 'sort', type: '/'},
@@ -65,30 +70,23 @@ export default class {
       { // https://apidocs.imgur.com/#ee366f7c-69e6-46fd-bf26-e93303f64c84
         name: 'accountImages',
         url: '/3/account/me/images',
-        args: []
+        args: [],
+        headers: ['bearer']
       },
     ];
 
     this.routes.map(route => {
       this[route.name] = async (opts = {}) => {
         let query = this.buildQuery(route.url, opts, route.args);
+        let routeHeaders = route.headers ? route.headers.reduce((acc, h) => ({...acc, ...this.getHeader(h)}), {}) : {};
+        let headers = {...this.headers, ...routeHeaders}
+
         console.log('query:', query);
-        return this.axios.get(query)
+        console.log('headers:', JSON.stringify(headers, null, 2));
+
+        return this.axios.get(query, {headers})
           .catch(this.errorHandler);
       };
-    });
-  }
-
-  initAxios(token=null) {
-    let headers = {
-      'Authorization': token ? `Bearer ${token}` : `Client-ID ${this.clientId}`,
-      // 'Accept': 'application/vnd.api+json'
-    };
-
-    this.axios = axios.create({
-      baseURL: 'https://api.imgur.com',
-      timeout: 1000,
-      headers: headers
     });
   }
 
@@ -116,5 +114,13 @@ export default class {
       return prefix(suffix[0]) + suffix.length ? suffix[1] : '';
     }
     return prefix + suffix;
+  }
+
+  getHeader(name) {
+    return {
+      clientId: {'Authorization': `Client-ID ${this.clientId}`},
+      bearer: {'Authorization': `Bearer ${this.token}`},
+      json: {'Accept': 'application/vnd.api+json'},
+    }[name];
   }
 }
