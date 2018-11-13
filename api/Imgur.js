@@ -88,6 +88,10 @@ export default class extends ApiBuilder {
     this.token = token;
   }
 
+  logout() {
+    this.token = null;
+  }
+
   getAuthUrl(redirectUrl) {
     return `https://api.imgur.com/oauth2/authorize?response_type=token` +
             `&client_id=${this.clientId}` +
