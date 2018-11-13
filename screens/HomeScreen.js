@@ -2,9 +2,9 @@ import React from 'react';
 import FeedScreen from './FeedScreen';
 import Imgur from '../api/Imgur';
 import ImgurConsts from '../constants/Imgur';
-import {StatusBar} from 'react-native';
+import {StatusBar, AsyncStorage} from 'react-native';
 import AutoImage from 'react-native-auto-height-image';
-import { AuthSession } from 'expo';
+import {AuthSession} from 'expo';
 
 export default class HomeScreen extends FeedScreen {
 
@@ -23,20 +23,28 @@ export default class HomeScreen extends FeedScreen {
 
     const res = await this.imgur.gallery({section: 'hot'});
     this.setState({data: res.data.data});
-    await this.initImgur();
+    await this.login();
   }
 
-  async initImgur() {
-    let redirectUrl = encodeURIComponent(AuthSession.getRedirectUrl());
-    console.log(this.imgur.getAuthUrl(redirectUrl));
-    let user = (await AuthSession.startAsync({
-        authUrl: this.imgur.getAuthUrl(redirectUrl),
-      })).params;
+  async login() {
+    let user = JSON.parse(await AsyncStorage.getItem('user'));
+
+    if (!user) {
+      let redirectUrl = encodeURIComponent(AuthSession.getRedirectUrl());
+       user = (await AuthSession.startAsync({
+          authUrl: this.imgur.getAuthUrl(redirectUrl),
+        })).params;
+      AsyncStorage.setItem('user', JSON.stringify(user));
+    } else {
+      console.log('already logged as ' + user.account_username);
+    }
 
     this.imgur.login(user.access_token)
-    let accountImages = await this.imgur.accountImages();
-    console.log(accountImages.data.data);
-    console.log('user-------------------->', user);
+  }
+
+  async logout() {
+    this.imgur.login(null);
+    await AsyncStorage.removeItem('user');
   }
 
   componentWillUnmount() {
