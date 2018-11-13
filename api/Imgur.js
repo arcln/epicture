@@ -8,7 +8,7 @@ const sortWindowPageFilters = [
 
 export default class extends ApiBuilder {
 
-  constructor(clientId, clientSecret, userToken, errorHandler) {
+  constructor(clientId, clientSecret, errorHandler) {
     super({
       config: {
         baseURL: 'https://api.imgur.com',
@@ -83,5 +83,14 @@ export default class extends ApiBuilder {
     this.errorHandler = errorHandler || (e => console.error(JSON.stringify(e.response.data)));
     this.headers = this.getHeader('clientId');
     this.token = userToken;
+  }
+  login(token) {
+    this.token = token;
+  }
+
+  getAuthUrl(redirectUrl) {
+    return `https://api.imgur.com/oauth2/authorize?response_type=token` +
+            `&client_id=${this.clientId}` +
+            `&redirect_uri=${redirectUrl}`
   }
 }
