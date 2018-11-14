@@ -56,8 +56,6 @@ export default class ImageGrid extends React.Component {
           <AsyncImage
             source={{uri: data.images[0].link}}
             style={{
-              borderTopLeftRadius: 5,
-              borderTopRightRadius: 5,
               width: Dimensions.get('window').width / this.state.itemPerRow - styles.item.margin * 2,
               height: Dimensions.get('window').width / this.state.itemPerRow,
             }}
@@ -142,15 +140,16 @@ export default class ImageGrid extends React.Component {
 styles = StyleSheet.create({
   gridContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: Colors.backgroundColor,
   },
   stats: {
-    // backgroundColor: '#474a51',
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
+    padding: 5,
   },
   item: {
     flex: 1,
-    margin: 3,
+    margin: 5,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    overflow: 'hidden'
   },
 });
