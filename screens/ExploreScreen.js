@@ -1,13 +1,11 @@
-import React from 'react';
 import FeedScreen from './FeedScreen';
 import Imgur from '../api/Imgur';
 import {StatusBar} from 'react-native';
-import AutoImage from 'react-native-auto-height-image';
-import Credentials from '../constants/Credentials';
+import ImgurConsts from '../constants/Imgur';
 
 export default class ExploreScreen extends FeedScreen {
 
-  imgur = new Imgur(Credentials.cliendId, Credentials.cliendSecret);
+  imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret);
 
   showViewOptions = true;
 

@@ -16,7 +16,7 @@ import Imgur from '../api/Imgur';
 import IconButton from '../components/IconButton';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import ImgurConsts from '../constants/Imgur';
-import {AuthSession} from 'expo';
+import User from '../api/User';
 
 export default class ProfileScreen extends React.Component {
 
@@ -35,7 +35,12 @@ export default class ProfileScreen extends React.Component {
   async componentDidMount() {
     this.props.navigation.setParams({title: 'Most viral'});
     this.imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret);
-    const res = await this.imgur.gallery({section: 'hot'});
+    this.imgur.login((await User.get()).access_token);
+    console.log((await User.get()).access_token);
+    const res = await this.imgur.accountSubmissions({
+      username: 'online24',
+    });
+    // console.log(res);
     this.setState({data: res.data.data});
     this.navListener = this.props.navigation.addListener('didFocus', () => {
       StatusBar.setBarStyle('light-content');
@@ -43,23 +48,21 @@ export default class ProfileScreen extends React.Component {
   }
 
   async initImgur() {
-    let redirectUrl = encodeURIComponent(AuthSession.getRedirectUrl());
-    console.log(redirectUrl);
-    let user = (await AuthSession.startAsync({
-      authUrl:
-        `https://api.imgur.com/oauth2/authorize?response_type=token` +
-        `&client_id=${Credentials.cliendId}` +
-        `&redirect_uri=${redirectUrl}`,
-    })).params;
+    // let redirectUrl = encodeURIComponent(AuthSession.getRedirectUrl());
+    // console.log(redirectUrl);
+    // let user = (await AuthSession.startAsync({
+    //   authUrl:
+    //     `https://api.imgur.com/oauth2/authorize?response_type=token` +
+    //     `&client_id=${Credentials.cliendId}` +
+    //     `&redirect_uri=${redirectUrl}`,
+    // })).params;
 
-    // console.log('user-------------------->', user)
-    this.imgur = new Imgur(Credentials.cliendId, Credentials.cliendSecret, user.access_token);
-    let accountImages = await this.imgur.accountImages();
-    console.log(accountImages.data.data);
-  }
-
-  componentWillUnmount() {
-    this.navListener.remove();
+    // this.imgur = new Imgur(Credentials.cliendId, Credentials.cliendSecret);
+    // let accountImages = await this.imgur.accountImagesFor({
+    //   username: 'online24'
+    // });
+    // console.log(accountImages.data)
+    // this.setState({data: accountImages.data.data});
   }
 
   render() {
