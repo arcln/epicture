@@ -29,40 +29,27 @@ export default class ProfileScreen extends React.Component {
 
   state = {
     data: [],
-    user: this.props.navigation.state.params && this.props.navigation.state.params.account || 'arthurcln',
+    acc: {},
+    user: this.props.navigation.state.params && this.props.navigation.state.params.account,
   };
 
   async componentDidMount() {
-    this.props.navigation.setParams({title: 'Most viral'});
     this.imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret);
-    this.imgur.login((await User.get()).access_token);
-    console.log((await User.get()).access_token);
-    const res = await this.imgur.accountSubmissions({
-      username: 'online24',
+    const user = await User.get();
+    this.imgur.login(user.access_token);
+    if (!this.state.user) {
+      await this.setState({user: user.account_username});
+    }
+    const acc = await this.imgur.account({
+      username: this.state.user,
     });
-    // console.log(res);
-    this.setState({data: res.data.data});
+    const res = await this.imgur.accountSubmissions({
+      username: this.state.user,
+    });
+    this.setState({data: res.data.data, acc: acc.data.data});
     this.navListener = this.props.navigation.addListener('didFocus', () => {
       StatusBar.setBarStyle('light-content');
     });
-  }
-
-  async initImgur() {
-    // let redirectUrl = encodeURIComponent(AuthSession.getRedirectUrl());
-    // console.log(redirectUrl);
-    // let user = (await AuthSession.startAsync({
-    //   authUrl:
-    //     `https://api.imgur.com/oauth2/authorize?response_type=token` +
-    //     `&client_id=${Credentials.cliendId}` +
-    //     `&redirect_uri=${redirectUrl}`,
-    // })).params;
-
-    // this.imgur = new Imgur(Credentials.cliendId, Credentials.cliendSecret);
-    // let accountImages = await this.imgur.accountImagesFor({
-    //   username: 'online24'
-    // });
-    // console.log(accountImages.data)
-    // this.setState({data: accountImages.data.data});
   }
 
   render() {
@@ -78,7 +65,7 @@ export default class ProfileScreen extends React.Component {
                     <Text style={styles.accountName}>@{this.state.user}</Text>
                   </View>
                   <View style={{flexDirection: 'row', justifyContent: 'center', textAlign: 'center'}}>
-                    <Text style={styles.accountEmail}>256,332 points - Glorious</Text>
+                    <Text style={styles.accountEmail}>{this.state.acc.reputation} points - {this.state.acc.reputation_name}</Text>
                   </View>
                 </View>
                 <View style={[styles.profileContainer, {flex: 3, flexDirection: 'row', justifyContent: 'center'}]}>
