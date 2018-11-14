@@ -34,7 +34,6 @@ export default class AsyncImage extends React.Component {
   componentDidMount() {
     if (!this.props.style.height) {
       Image.getSize(this.props.source.uri, (width, height) => {
-        console.log(height)
         const screenWidth = Dimensions.get('window').width
         const scaleFactor = width / screenWidth
         const imageHeight = height / scaleFactor;

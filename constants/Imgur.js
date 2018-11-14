@@ -1,4 +1,4 @@
 export default {
-  clientId: '7425ab7bf4551fb',
-  clientSecret: '252ae82a53d00c6a14e3629dd7f6e3983a7e7b18'
+  clientId: '8f1500f2756da5b',
+  clientSecret: 'ad7507951f0a1b0567f931bfbe1439fdc571e481'
 };
