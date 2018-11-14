@@ -1,28 +1,17 @@
-import React from 'react';
 import FeedScreen from './FeedScreen';
 import Imgur from '../api/Imgur';
+import {StatusBar} from 'react-native';
 import ImgurConsts from '../constants/Imgur';
-import {
-  StatusBar,
-} from 'react-native';
-import AutoImage from 'react-native-auto-height-image';
 
-export default class HomeScreen extends FeedScreen {
+export default class ExploreScreen extends FeedScreen {
 
   imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret);
 
-  showViewOptions = false;
+  showViewOptions = true;
 
-  itemsPerRow = 1;
+  itemsPerRow = 2;
 
   async componentDidMount() {
-    this.props.navigation.setParams({
-      headerTitle: <AutoImage
-        source={require('../assets/images/logo.png')}
-        width={100}
-      />
-    });
-
     this.navListener = this.props.navigation.addListener('didFocus', () => {
       StatusBar.setBarStyle('dark-content');
     });

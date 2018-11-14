@@ -43,7 +43,8 @@ export default class {
 
     if (typeof prefix == 'function') {
       suffix = suffix.split('?')
-      return prefix(suffix[0]) + suffix.length ? suffix[1] : '';
+      console.log(prefix(suffix[0]), suffix)
+      return prefix(suffix[0]) + (suffix[1] ? suffix[1] : '');
     }
     return prefix + suffix;
   }

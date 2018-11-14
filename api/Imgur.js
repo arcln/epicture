@@ -62,6 +62,12 @@ export default class extends ApiBuilder {
           url: '/3/account',
           args: [{name: 'username', type: '/'}]
         },
+        {
+          name: 'accountSubmissions',
+          url: suffix => `/3/account${suffix}/submissions/0`,
+          args: [{name: 'username', type: '/'}],
+          headers: ['bearer'],
+        },
         { // https://apidocs.imgur.com/#ee366f7c-69e6-46fd-bf26-e93303f64c84
           name: 'accountImages',
           url: '/3/account/me/images',
@@ -80,7 +86,7 @@ export default class extends ApiBuilder {
 
     this.clientId = clientId;
     this.clientSecret = clientSecret;
-    this.errorHandler = errorHandler || (e => console.error(JSON.stringify(e.response.data)));
+    this.errorHandler = errorHandler || (e => console.error(JSON.stringify(e.response && e.response.data || e)));
     this.headers = this.getHeader('clientId');
   }
 
@@ -94,7 +100,7 @@ export default class extends ApiBuilder {
 
   getAuthUrl(redirectUrl) {
     return `https://api.imgur.com/oauth2/authorize?response_type=token` +
-            `&client_id=${this.clientId}` +
-            `&redirect_uri=${redirectUrl}`
+      `&client_id=${this.clientId}` +
+      `&redirect_uri=${redirectUrl}`
   }
 }

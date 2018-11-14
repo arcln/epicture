@@ -16,6 +16,7 @@ import Imgur from '../api/Imgur';
 import IconButton from '../components/IconButton';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import ImgurConsts from '../constants/Imgur';
+import User from '../api/User';
 
 export default class ProfileScreen extends React.Component {
 
@@ -28,21 +29,27 @@ export default class ProfileScreen extends React.Component {
 
   state = {
     data: [],
-    user: this.props.navigation.state.params && this.props.navigation.state.params.account || 'arthurcln',
+    acc: {},
+    user: this.props.navigation.state.params && this.props.navigation.state.params.account,
   };
 
   async componentDidMount() {
-    this.props.navigation.setParams({title: 'Most viral'});
     this.imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret);
-    const res = await this.imgur.gallery({section: 'hot'});
-    this.setState({data: res.data.data});
+    const user = await User.get();
+    this.imgur.login(user.access_token);
+    if (!this.state.user) {
+      await this.setState({user: user.account_username});
+    }
+    const acc = await this.imgur.account({
+      username: this.state.user,
+    });
+    const res = await this.imgur.accountSubmissions({
+      username: this.state.user,
+    });
+    this.setState({data: res.data.data, acc: acc.data.data});
     this.navListener = this.props.navigation.addListener('didFocus', () => {
       StatusBar.setBarStyle('light-content');
     });
-  }
-
-  componentWillUnmount() {
-    this.navListener.remove();
   }
 
   render() {
@@ -55,10 +62,10 @@ export default class ProfileScreen extends React.Component {
               <View style={{flex: 1, flexDirection: 'row'}}>
                 <View style={{flex: 4, justifyContent: 'center', paddingLeft: 20}}>
                   <View style={{flexDirection: 'row', justifyContent: 'center', textAlign: 'center'}}>
-                    <Text onPress={() => console.log('ok')} style={styles.accountName}>@{this.state.user}</Text>
+                    <Text style={styles.accountName}>@{this.state.user}</Text>
                   </View>
                   <View style={{flexDirection: 'row', justifyContent: 'center', textAlign: 'center'}}>
-                    <Text style={styles.accountEmail}>256,332 points - Glorious</Text>
+                    <Text style={styles.accountEmail}>{this.state.acc.reputation} points - {this.state.acc.reputation_name}</Text>
                   </View>
                 </View>
                 <View style={[styles.profileContainer, {flex: 3, flexDirection: 'row', justifyContent: 'center'}]}>
@@ -86,6 +93,7 @@ export default class ProfileScreen extends React.Component {
             data={this.state.data}
             itemPressed={(_, data) => this.props.navigation.push('Image', {data})}
             disableRowSizeSelect={true}
+            itemsPerRow={2}
           />
         </View>
       </ScrollView >
