@@ -4,6 +4,7 @@ import {
   View,
   Button,
   Text,
+  StatusBar,
 } from 'react-native';
 import {AuthSession, LinearGradient} from 'expo';
 import User from '../api/User';
@@ -29,8 +30,8 @@ export default class LandingScreen extends React.Component {
     if (!user) {
       let redirectUrl = encodeURIComponent(AuthSession.getRedirectUrl());
       user = (await AuthSession.startAsync({
-          authUrl: this.imgur.getAuthUrl(redirectUrl),
-        })).params;
+        authUrl: this.imgur.getAuthUrl(redirectUrl),
+      })).params;
       User.set(user);
     } else {
       console.log('already logged as ' + user.account_username);
@@ -42,6 +43,7 @@ export default class LandingScreen extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
+        <StatusBar barStyle='light-content' />
         <LinearGradient
           colors={['#2e2e82', '#171544']}
           style={styles.container}>
@@ -50,7 +52,7 @@ export default class LandingScreen extends React.Component {
             <AutoImage
               source={require('../assets/images/logo.png')}
               width={300}
-              />
+            />
           </View>
           <View>
             <Button
