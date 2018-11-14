@@ -16,6 +16,7 @@ import Imgur from '../api/Imgur';
 import IconButton from '../components/IconButton';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import ImgurConsts from '../constants/Imgur';
+import {AuthSession} from 'expo';
 
 export default class ProfileScreen extends React.Component {
 
@@ -39,6 +40,22 @@ export default class ProfileScreen extends React.Component {
     this.navListener = this.props.navigation.addListener('didFocus', () => {
       StatusBar.setBarStyle('light-content');
     });
+  }
+
+  async initImgur() {
+    let redirectUrl = encodeURIComponent(AuthSession.getRedirectUrl());
+    console.log(redirectUrl);
+    let user = (await AuthSession.startAsync({
+      authUrl:
+        `https://api.imgur.com/oauth2/authorize?response_type=token` +
+        `&client_id=${Credentials.cliendId}` +
+        `&redirect_uri=${redirectUrl}`,
+    })).params;
+
+    // console.log('user-------------------->', user)
+    this.imgur = new Imgur(Credentials.cliendId, Credentials.cliendSecret, user.access_token);
+    let accountImages = await this.imgur.accountImages();
+    console.log(accountImages.data.data);
   }
 
   componentWillUnmount() {

@@ -9,6 +9,7 @@ import {
   StatusBar,
 } from 'react-native';
 import AutoImage from 'react-native-auto-height-image';
+import AsyncImage from '../components/AsyncImage';
 import ImageStats from '../components/ImageStats';
 import IconButton from '../components/IconButton';
 
@@ -37,10 +38,17 @@ export default class ImageScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <StatusBar barStyle='dark-content' />
-        <AutoImage
+        <AsyncImage
+          source={{uri: this.state.data.images[0].link}}
+          width={this.state.itemWidth}
+          style={{
+            width: Dimensions.get('window').width,
+          }}
+        />
+        {/* <AutoImage
           source={{uri: this.state.data.images[0].link}}
           width={Dimensions.get('window').width}
-        />
+        /> */}
         <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 10}}>
           <View style={{paddingLeft: 10}}>
             <ImageStats size={16} color='#000' data={this.state.data} />

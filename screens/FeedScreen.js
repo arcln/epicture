@@ -9,6 +9,8 @@ import ImageGrid from '../components/ImageGrid';
 
 export default class FeedScreen extends React.Component {
 
+  page = 1;
+
   state = {
     data: [],
     user: {},
@@ -22,6 +24,23 @@ export default class FeedScreen extends React.Component {
     }
 
     return navigation.state.params;
+  };
+
+  setQuery = query => {
+    this.query = query;
+    this.fetchData();
+  };
+
+  fetchData = async () => {
+    const res = await this.imgur.gallery({
+      ...this.query,
+      page: this.page,
+    });
+    console.log({
+      ...this.query,
+      page: this.page,
+    })
+    this.setState({data: [...this.state.data, ...res.data.data]});
   };
 
   sortBy = key => {
@@ -39,6 +58,11 @@ export default class FeedScreen extends React.Component {
           onSort={this.sortBy}
           data={this.state.data}
           itemsPerRow={this.itemsPerRow}
+          onEnd={() => {
+            console.log('ok')
+            this.page += 1;
+            this.fetchData(this.page);
+          }}
         />
       </View>
     );

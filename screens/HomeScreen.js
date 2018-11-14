@@ -27,8 +27,7 @@ export default class HomeScreen extends FeedScreen {
       StatusBar.setBarStyle('dark-content');
     });
 
-    const res = await this.imgur.gallery({section: 'hot'});
-    this.setState({data: res.data.data});
+    this.setQuery({section: 'hot'});
   }
 
   componentWillUnmount() {

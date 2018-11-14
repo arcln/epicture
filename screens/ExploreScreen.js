@@ -3,10 +3,11 @@ import FeedScreen from './FeedScreen';
 import Imgur from '../api/Imgur';
 import {StatusBar} from 'react-native';
 import AutoImage from 'react-native-auto-height-image';
+import Credentials from '../constants/Credentials';
 
 export default class ExploreScreen extends FeedScreen {
 
-  imgur = new Imgur('a1c2ed557be8cb8', '10f63ce8eff4619b18579af0ef4ef71bd6d8b400');
+  imgur = new Imgur(Credentials.cliendId, Credentials.cliendSecret);
 
   showViewOptions = true;
 
@@ -17,8 +18,7 @@ export default class ExploreScreen extends FeedScreen {
       StatusBar.setBarStyle('dark-content');
     });
 
-    const res = await this.imgur.gallery({section: 'hot'});
-    this.setState({data: res.data.data});
+    this.setQuery({section: 'hot'});
   }
 
   componentWillUnmount() {
