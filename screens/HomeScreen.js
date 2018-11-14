@@ -1,12 +1,15 @@
 import React from 'react';
 import FeedScreen from './FeedScreen';
 import Imgur from '../api/Imgur';
-import {StatusBar} from 'react-native';
+import ImgurConsts from '../constants/Imgur';
+import {
+  StatusBar,
+} from 'react-native';
 import AutoImage from 'react-native-auto-height-image';
 
 export default class HomeScreen extends FeedScreen {
 
-  imgur = new Imgur('a1c2ed557be8cb8', '10f63ce8eff4619b18579af0ef4ef71bd6d8b400');
+  imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret);
 
   async componentDidMount() {
     this.props.navigation.setParams({
