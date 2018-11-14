@@ -33,7 +33,7 @@ export default class AsyncImage extends React.Component {
 
   componentDidMount() {
     if (!this.props.style.height) {
-      Image.getSize(this.props.source, (width, height) => {
+      Image.getSize(this.props.source.uri, (width, height) => {
         console.log(height)
         const screenWidth = Dimensions.get('window').width
         const scaleFactor = width / screenWidth
@@ -51,7 +51,7 @@ export default class AsyncImage extends React.Component {
           source={this.props.source}
           onLoad={this.imageLoaded}
         />
-        <Animated.View style={{position: 'absolute', opacity: this.state.placeholderOpacity}}>
+        <Animated.View style={{position: 'absolute', opacity: this.state.placeholderOpacity, zIndex: -1000}}>
           <ContentLoader
             height={this.props.width}
             width={this.props.width}
