@@ -95,6 +95,13 @@ export default class extends ApiBuilder {
           headers: ['bearer'],
           httpMethod: 'post'
         },
+        { // https://apidocs.imgur.com/#31c72664-59c1-426f-98d7-ac7ad6547cc2
+          name: 'toogleFavorite',
+          url: suffix => `/3/album${suffix}/favorite`,
+          args: [{name: 'albumHash', type: '/'}],
+          headers: ['bearer'],
+          httpMethod: 'post'
+        },
       ],
       headers: () => {
         let bearer = `Bearer ${this.token}`;
@@ -114,7 +121,6 @@ export default class extends ApiBuilder {
   }
 
   login(token) {
-    console.log('imgur login with ' + token);
     this.token = token;
   }
 
