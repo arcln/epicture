@@ -52,6 +52,12 @@ export default class ProfileScreen extends React.Component {
     });
   }
 
+  logout = () => {
+    User.logout();
+    this.imgur.logout();
+    this.props.navigation.dispatch(NavigationActions.back());
+  }
+
   render() {
     return (
       <ScrollView style={styles.container} bounces={false}>
@@ -61,11 +67,15 @@ export default class ProfileScreen extends React.Component {
             <View style={{width: Dimensions.get('window').width, paddingBottom: 30, paddingTop: getStatusBarHeight() + 20}}>
               <View style={{flex: 1, flexDirection: 'row'}}>
                 <View style={{flex: 4, justifyContent: 'center', paddingLeft: 20}}>
-                  <View style={{flexDirection: 'row', justifyContent: 'center', textAlign: 'center'}}>
-                    <Text style={styles.accountName}>@{this.state.user}</Text>
-                  </View>
-                  <View style={{flexDirection: 'row', justifyContent: 'center', textAlign: 'center'}}>
-                    <Text style={styles.accountEmail}>{this.state.acc.reputation} points - {this.state.acc.reputation_name}</Text>
+                  <Text style={styles.accountName}>@{this.state.user}</Text>
+                  <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+                    <Text style={styles.accountReputation}>{this.state.acc.reputation} points - {this.state.acc.reputation_name}</Text>
+                    <View style={{marginTop: 3, marginLeft: 6}}><IconButton
+                        name={Platform.OS === 'ios' ? 'ios-log-out' : 'md-log-out'}
+                        size={14}
+                        color='#333'
+                        onPress={this.logout}
+                    /></View>
                   </View>
                 </View>
                 <View style={[styles.profileContainer, {flex: 3, flexDirection: 'row', justifyContent: 'center'}]}>
@@ -123,12 +133,14 @@ const styles = StyleSheet.create({
     height: 100,
   },
   accountName: {
+    textAlign: "center",
     color: '#fff',
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     // fontWeight: '200',
   },
-  accountEmail: {
+  accountReputation: {
+    textAlign: "center",
     color: '#fff',
     fontSize: 14,
   },
