@@ -20,7 +20,7 @@ export default class SearchScreen extends React.Component {
   });
 
   componentWillMount() {
-    this.navListener = this.props.navigation.addListener('didFocus', () => {
+    this.navListener = this.props.navigation && this.props.navigation.addListener('didFocus', () => {
       StatusBar.setBarStyle('dark-content');
     });
   }

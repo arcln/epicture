@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Landing snapshot renders the screen 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <ExponentLinearGradient
+    colors={
+      Array [
+        4281216642,
+        4279702852,
+      ]
+    }
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "flexDirection": "column",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "height": 300,
+          "marginTop": 90,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#fff",
+          }
+        }
+      >
+        Welcome to
+      </Text>
+      <Image
+        onError={[Function]}
+        onHeightChange={[Function]}
+        source={1}
+        style={
+          Array [
+            Object {
+              "height": 0,
+              "width": 300,
+            },
+            undefined,
+          ]
+        }
+      />
+    </View>
+    <View>
+      <View
+        accessibilityRole="button"
+        accessibilityStates={Array []}
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {},
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#007AFF",
+                  "fontSize": 18,
+                  "padding": 8,
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "#1bb76e",
+                },
+              ]
+            }
+          >
+            Login
+          </Text>
+        </View>
+      </View>
+    </View>
+  </ExponentLinearGradient>
+</View>
+`;

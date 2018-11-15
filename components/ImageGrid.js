@@ -33,7 +33,7 @@ export default class ImageGrid extends React.Component {
     if (newData.length < this.state.displayedCount) {
       newData.push(...Array(this.state.displayedCount - newData.length).map((_, idx) => ({key: newData.length + idx})));
     }
-    console.log(newData.length, this.state.displayedCount);
+
     this.setState({displayedData: newData});
   };
 

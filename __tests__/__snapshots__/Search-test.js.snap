@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search snapshot renders the screen 1`] = `
+<View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "paddingTop": 20,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignContent": "center",
+          "borderBottomColor": "#888",
+          "borderBottomWidth": 0.2,
+          "flexDirection": "row",
+          "paddingHorizontal": 20,
+          "paddingVertical": 10,
+        }
+      }
+    >
+      <Text />
+      <TextInput
+        allowFontScaling={true}
+        onChangeText={[Function]}
+        placeholder="Search Imgur"
+        style={
+          Object {
+            "fontSize": 18,
+          }
+        }
+        underlineColorAndroid="transparent"
+        value=""
+      />
+    </View>
+  </View>
+</View>
+`;

@@ -29,7 +29,9 @@ export default class ProfileScreen extends React.Component {
   state = {
     data: [],
     acc: {},
-    user: this.props.navigation.state.params && this.props.navigation.state.params.account,
+    user: this.props.navigation
+      && this.props.navigation.state.params
+      && this.props.navigation.state.params.account,
   };
 
   async updateAccount() {
@@ -94,7 +96,7 @@ export default class ProfileScreen extends React.Component {
                 </View>
               </View>
             </View>
-            {!(this.props.navigation.state.params && this.props.navigation.state.params.account) ? null : (
+            {!(this.props.navigation && this.props.navigation.state.params && this.props.navigation.state.params.account) ? null : (
               <View style={styles.returnBtn}>
                 <IconButton
                   name={Platform.OS === 'ios' ? 'ios-arrow-back' : 'md-arrow-back'}
