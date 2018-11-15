@@ -11,7 +11,7 @@ import ExploreScreen from '../screens/ExploreScreen';
 import ImageScreen from '../screens/ImageScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ProfileNavigator from './ProfileNavigator';
-// import SettingsScreen from '../screens/SettingsScreen';
+import UploadPromptScreen from '../screens/UploadPromptScreen';
 
 const createTabLabel = (iconName, size, padding) => ({
   tabBarLabel: ' ',
@@ -54,7 +54,7 @@ ExploreStack.navigationOptions = createTabLabel('compass');
 
 const UploadStack = createStackNavigator({
   Profile: {
-    screen: ProfileNavigator,
+    screen: UploadPromptScreen,
     navigationOptions: {
       header: null,
     },
