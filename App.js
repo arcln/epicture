@@ -11,6 +11,10 @@ export default class App extends React.Component {
     user: {},
   };
 
+  componentDidMount() {
+    User.onChange((user) => this.setState({user}));
+  }
+
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
