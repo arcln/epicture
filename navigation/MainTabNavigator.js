@@ -11,7 +11,7 @@ import ExploreScreen from '../screens/ExploreScreen';
 import ImageScreen from '../screens/ImageScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ProfileNavigator from './ProfileNavigator';
-import UploadPromptScreen from '../screens/UploadPromptScreen';
+import UploadScreen from '../screens/UploadScreen';
 
 const createTabLabel = (iconName, size, padding) => ({
   tabBarLabel: ' ',
@@ -53,13 +53,9 @@ const ExploreStack = createStackNavigator({
 ExploreStack.navigationOptions = createTabLabel('compass');
 
 const UploadStack = createStackNavigator({
-  Profile: {
-    screen: UploadPromptScreen,
-    navigationOptions: {
-      header: null,
-    },
+  Upload: {
+    screen: UploadScreen,
   },
-  // Image: ImageScreen,
 });
 
 UploadStack.navigationOptions = createTabLabel('add-circle-outline', 34, 5);
