@@ -32,6 +32,20 @@ export default class ProfileScreen extends React.Component {
     user: this.props.navigation.state.params && this.props.navigation.state.params.account,
   };
 
+  async updateAccount() {
+    const acc = await this.imgur.account({
+      username: this.state.user,
+    });
+    this.setState({acc: acc.data.data});
+  }
+
+  async updateAccountSubs() {
+    const res = await this.imgur.accountSubmissions({
+      username: this.state.user,
+    });
+    this.setState({data: res.data.data});
+  }
+
   async componentDidMount() {
     const user = await User.get();
     this.imgur = new AuthImgur(user.access_token);
@@ -39,13 +53,8 @@ export default class ProfileScreen extends React.Component {
     if (!this.state.user) {
       await this.setState({user: user.account_username});
     }
-    const acc = await this.imgur.account({
-      username: this.state.user,
-    });
-    const res = await this.imgur.accountSubmissions({
-      username: this.state.user,
-    });
-    this.setState({data: res.data.data, acc: acc.data.data});
+
+    await Promise.all([this.updateAccount(), this.updateAccountSubs()])
 
     this.navListener = this.props.navigation.addListener('didFocus', () => {
       StatusBar.setBarStyle('light-content');
