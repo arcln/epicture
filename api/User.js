@@ -20,8 +20,8 @@ class User {
     }
 
     static async set(user) {
-        User.cache = JSON.stringify(user);
-        await AsyncStorage.setItem('user', User.cache);
+        User.cache = user;
+        await AsyncStorage.setItem('user', JSON.stringify(User.cache));
         User.triggerChange();
     }
 
