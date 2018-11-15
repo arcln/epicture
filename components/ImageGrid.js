@@ -50,23 +50,22 @@ export default class ImageGrid extends React.Component {
   };
 
   renderItem = (data, i) => (
-    <TouchableHighlight key={i} onPress={() => this.props.itemPressed && this.props.itemPressed(i, data)}>
-      <View>
-        <AsyncImage
-          source={{uri: data.images[0].link}}
-          width={this.state.itemWidth}
-          style={{
-            width: this.state.itemWidth,
-            height: this.state.itemWidth,
-          }}
-        />
-        <View style={styles.stats}>
-          <View style={{color: 'rgba(0, 0, 0, 1)'}}>
-            <ImageStats size={12} color='#fff' data={data} />
-          </View>
+    <View key={i} style={styles.item}>
+      <TouchableHighlight onPress={() => this.props.itemPressed && this.props.itemPressed(i, data)}>
+        <View>
+          <AsyncImage
+            source={{uri: data.images[0].link}}
+            style={{
+              width: Dimensions.get('window').width / this.state.itemPerRow - styles.item.margin * 2,
+              height: Dimensions.get('window').width / this.state.itemPerRow,
+            }}
+          />
         </View>
+      </TouchableHighlight>
+      <View style={styles.stats}>
+        <ImageStats size={12} color='#474a51' data={data} />
       </View>
-    </TouchableHighlight>
+    </View>
   );
 
   header = (
@@ -122,7 +121,7 @@ export default class ImageGrid extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.gridContainer}>
+      <View style={styles.gridContainer}>
         {this.header}
         <View style={{height: Dimensions.get('window').height}}>
           <Grid
@@ -133,7 +132,7 @@ export default class ImageGrid extends React.Component {
             renderPlaceholder={() => <View style={{backgroundColor: '#ededed'}} key={Math.random()}></View>}
           />
         </View>
-      </ScrollView>
+      </View>
     );
   }
 }
@@ -141,13 +140,16 @@ export default class ImageGrid extends React.Component {
 styles = StyleSheet.create({
   gridContainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: Colors.backgroundColor,
   },
   stats: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    backgroundColor: 'rgba(42, 42, 42, 0.5)',
-    borderTopLeftRadius: 5,
+    padding: 5,
+  },
+  item: {
+    flex: 1,
+    margin: 5,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    overflow: 'hidden'
   },
 });

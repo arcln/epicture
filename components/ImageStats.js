@@ -1,48 +1,102 @@
 import React from 'react';
 import {
+  StyleSheet,
   View,
   Text,
   Platform,
+  TouchableOpacity,
 } from 'react-native';
-import IconButton from '../components/IconButton';
+import {Icon} from 'expo';
+import User from '../api/User';
+import Imgur from '../api/Imgur';
+import ImgurConsts from '../constants/Imgur';
 
 export default class ImageStats extends React.Component {
+
+  imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret);
+
+  user = User.get();
+
+  state = {
+    vote: null,
+  }
+
+  async componentDidMount() {
+    this.user = await this.user;
+    this.imgur.login(this.user.access_token);
+    this.setState({vote: this.props.data.vote});
+  }
+
+  toogleVote = async (vote) => {
+    let value = await this.imgur.toogleVote(vote, this.state.vote, this.props.data.id);
+    this.setState({vote: value});
+  }
+
   render() {
     return (
-      <View style={{flexDirection: 'row'}}>
-        <View style={{paddingLeft: 5, flexDirection: 'row'}}>
-          <IconButton
-            size={this.props.size + 8}
-            color={this.props.color}
-            name={Platform.OS === 'ios' ? 'ios-arrow-round-up' : 'md-arrow-round-up'}
-          />
-          <View style={{justifyContent: 'center', paddingLeft: 5}}>
-            <Text style={{fontSize: this.props.size, color: this.props.color}}>{this.props.data.ups || 0}</Text>
-          </View>
-        </View>
-        <View style={{paddingLeft: 10, flexDirection: 'row'}}>
-          <IconButton
-            size={this.props.size + 8}
-            color={this.props.color}
-            name={Platform.OS === 'ios' ? 'ios-arrow-round-down' : 'md-arrow-round-down'}
-          />
-          <View style={{justifyContent: 'center', paddingLeft: 5}}>
-            <Text style={{fontSize: this.props.size, color: this.props.color}}>{this.props.data.downs || 0}</Text>
-          </View>
-        </View>
-        <View style={{paddingLeft: 10, paddingRight: 5, flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={styles.infoButton} >
           <View style={{justifyContent: 'center'}}>
-            <IconButton
-              size={this.props.size + 4}
+            <Icon.Ionicons
+              size={this.props.size  + this.platformSettings.eyeSize}
               color={this.props.color}
-              name={Platform.OS === 'ios' ? 'ios-eye' : 'md-eye'}
+              name={this.platformSettings.eye}
             />
           </View>
           <View style={{justifyContent: 'center', paddingLeft: 6}}>
             <Text style={{fontSize: this.props.size, color: this.props.color}}>{this.props.data.views || 0}</Text>
           </View>
         </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity onPress={() => this.toogleVote('up')} style={styles.infoButton}>
+            <Icon.Ionicons
+              size={this.props.size + this.platformSettings.arrowsSize}
+              color={this.state.vote == 'up' ? 'green' : this.props.color}
+              name={this.platformSettings.arrowUp}
+            />
+            <View style={styles.buttonLabel}>
+              <Text style={{fontSize: this.props.size, color: this.props.color}}>{this.props.data.ups || 0}</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.toogleVote('down')} style={styles.infoButton}>
+            <Icon.Ionicons
+              size={this.props.size + this.platformSettings.arrowsSize}
+              color={this.state.vote == 'down' ? 'red' : this.props.color}
+              name={this.platformSettings.arrowDown}
+            />
+            <View style={styles.buttonLabel}>
+              <Text style={{fontSize: this.props.size, color: this.props.color}}>{this.props.data.downs || 0}</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
+
+  platformSettings = Platform.OS === 'ios' ? {
+    arrowUp: 'ios-arrow-round-up',
+    arrowDown: 'ios-arrow-round-down',
+    eye: 'ios-eye',
+    arrowsSize: 8,
+    eyeSize: 4,
+  } : {
+    arrowUp: 'md-arrow-round-up',
+    arrowDown: 'md-arrow-round-down',
+    eye: 'md-eye',
+    arrowsSize: 4,
+    eyeSize: 4,
+  }
 }
+
+const styles = StyleSheet.create({
+  infoButton: {
+    paddingLeft: 5,
+    paddingRight: 5,
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+  },
+  buttonLabel: {
+    justifyContent: 'center',
+    paddingLeft: 5,
+  }
+});

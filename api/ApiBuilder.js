@@ -8,15 +8,19 @@ export default class {
     this.getHeaders = headers;
 
     this.routes.map(route => {
+      let httpMethod = route.httpMethod ? route.httpMethod : 'get';
       this[route.name] = async (opts = {}) => {
         let query = this.buildQuery(route.url, opts, route.args);
         let routeHeaders = route.headers ? route.headers.reduce((acc, h) => ({...acc, ...this.getHeader(h)}), {}) : {};
-        let headers = {...this.headers, ...routeHeaders}
+        let headers = {...this.headers(), ...routeHeaders}
 
         console.log('query:', query);
         console.log('headers:', JSON.stringify(headers, null, 2));
+        console.log('method:', httpMethod);
 
-        return this.axios.get(query, {headers})
+        return (httpMethod == 'get'
+          ? this.axios[httpMethod](query, {headers})
+          : this.axios[httpMethod](query, {}, {headers}))
           .catch(this.errorHandler);
       };
     });
