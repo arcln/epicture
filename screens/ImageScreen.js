@@ -12,6 +12,8 @@ import AutoImage from 'react-native-auto-height-image';
 import AsyncImage from '../components/AsyncImage';
 import ImageStats from '../components/ImageStats';
 import IconButton from '../components/IconButton';
+import User from '../api/User';
+import AuthImgur from '../api/AuthImgur';
 
 export default class ImageScreen extends React.Component {
 
@@ -21,9 +23,13 @@ export default class ImageScreen extends React.Component {
 
   state = {
     data: this.props.navigation.state.params && this.props.navigation.state.params.data || {},
+    favorite: this.props.navigation.state.params.data.favorite,
   };
 
-  componentDidMount() {
+  async componentDidMount() {
+    const user = await User.get();
+    this.imgur = new AuthImgur(user.access_token);
+
     this.props.navigation.setParams({title: this.state.data.title})
     this.navListener = this.props.navigation.addListener('didFocus', () => {
       StatusBar.setBarStyle('dark-content');
@@ -32,6 +38,11 @@ export default class ImageScreen extends React.Component {
 
   componentWillUnmount() {
     this.navListener.remove();
+  }
+
+  async toogleFavorite(id) {
+    let data = (await this.imgur.toogleFavorite({albumHash: id})).data.data;
+    await this.setState({favorite: data == 'favorited'});
   }
 
   render() {
@@ -62,8 +73,9 @@ export default class ImageScreen extends React.Component {
           <View style={{marginRight: 20}}>
             <IconButton
               size={30}
-              color='#000'
-              name={Platform.OS === 'ios' ? 'ios-heart-empty' : 'md-heart-empty'}
+              color={this.state.favorite ? 'red' : '#000'}
+              onPress={() => this.toogleFavorite(this.state.data.id)}
+              name={(Platform.OS === 'ios' ? 'ios-heart' : 'md-heart') + (this.state.favorite ? '' : '-empty')}
             />
           </View>
         </View>
