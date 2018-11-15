@@ -12,7 +12,7 @@ export default class extends ApiBuilder {
     super({
       config: {
         baseURL: 'https://api.imgur.com',
-        timeout: 1000,
+        timeout: 10000,
       },
       routes: [
         { // https://apidocs.imgur.com/#eff60e84-5781-4c12-926a-208dc4c7cc94
@@ -74,11 +74,33 @@ export default class extends ApiBuilder {
           args: [],
           headers: ['bearer']
         },
+        { // https://apidocs.imgur.com/#ee366f7c-69e6-46fd-bf26-e93303f64c84
+          name: 'upvote',
+          url: suffix => `/3/gallery${suffix}/vote/up`,
+          args: [{name: 'galleryHash', type: '/'}],
+          headers: ['bearer'],
+          httpMethod: 'post'
+        },
+        { // https://apidocs.imgur.com/#ee366f7c-69e6-46fd-bf26-e93303f64c84
+          name: 'downvote',
+          url: suffix => `/3/gallery${suffix}/vote/down`,
+          args: [{name: 'galleryHash', type: '/'}],
+          headers: ['bearer'],
+          httpMethod: 'post'
+        },
+        { // https://apidocs.imgur.com/#ee366f7c-69e6-46fd-bf26-e93303f64c84
+          name: 'unvote',
+          url: suffix => `/3/gallery${suffix}/vote/veto`,
+          args: [{name: 'galleryHash', type: '/'}],
+          headers: ['bearer'],
+          httpMethod: 'post'
+        },
       ],
       headers: () => {
+        let bearer = `Bearer ${this.token}`;
         return {
-          clientId: {'Authorization': `Client-ID ${this.clientId}`},
-          bearer: {'Authorization': `Bearer ${this.token}`},
+          clientId: {'Authorization': this.token ? bearer : `Client-ID ${this.clientId}`},
+          bearer: {'Authorization': bearer},
           json: {'Accept': 'application/vnd.api+json'},
         };
       }
@@ -87,7 +109,7 @@ export default class extends ApiBuilder {
     this.clientId = clientId;
     this.clientSecret = clientSecret;
     this.errorHandler = errorHandler || (e => console.error(JSON.stringify(e.response && e.response.data || e)));
-    this.headers = this.getHeader('clientId');
+    this.headers = () => this.getHeader('clientId');
   }
 
   login(token) {
@@ -96,6 +118,15 @@ export default class extends ApiBuilder {
 
   logout() {
     this.token = null;
+  }
+
+  toogleVote = async (vote, currentValue, id) => {
+    if (currentValue == vote) {
+      await this.unvote({galleryHash: id});
+      return null;
+    }
+    await this[`${vote}vote`]({galleryHash: id});
+    return vote;
   }
 
   getAuthUrl(redirectUrl) {

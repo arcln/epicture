@@ -6,6 +6,7 @@ import {
   StatusBar,
 } from 'react-native';
 import AutoImage from 'react-native-auto-height-image';
+import User from '../api/User';
 
 export default class HomeScreen extends FeedScreen {
 
@@ -27,6 +28,8 @@ export default class HomeScreen extends FeedScreen {
       StatusBar.setBarStyle('dark-content');
     });
 
+    let access_token = (await User.get()).access_token;
+    this.imgur.login(access_token);
     this.setQuery({section: 'hot'});
   }
 

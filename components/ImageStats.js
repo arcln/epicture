@@ -7,14 +7,29 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Icon} from 'expo';
+import User from '../api/User';
+import Imgur from '../api/Imgur';
+import ImgurConsts from '../constants/Imgur';
 
 export default class ImageStats extends React.Component {
-  onUpvote() {
-    alert('upvote');
+
+  imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret);
+
+  user = User.get();
+
+  state = {
+    vote: null,
   }
 
-  onDownvote() {
-    alert('downvote');
+  async componentDidMount() {
+    this.user = await this.user;
+    this.imgur.login(this.user.access_token);
+    this.setState({vote: this.props.data.vote});
+  }
+
+  toogleVote = async (vote) => {
+    let value = await this.imgur.toogleVote(vote, this.state.vote, this.props.data.id);
+    this.setState({vote: value});
   }
 
   render() {
@@ -33,20 +48,20 @@ export default class ImageStats extends React.Component {
           </View>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity onPress={this.onUpvote} style={styles.infoButton}>
+          <TouchableOpacity onPress={() => this.toogleVote('up')} style={styles.infoButton}>
             <Icon.Ionicons
               size={this.props.size + this.platformSettings.arrowsSize}
-              color={this.props.color}
+              color={this.state.vote == 'up' ? 'green' : this.props.color}
               name={this.platformSettings.arrowUp}
             />
             <View style={styles.buttonLabel}>
               <Text style={{fontSize: this.props.size, color: this.props.color}}>{this.props.data.ups || 0}</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.onDownvote} style={styles.infoButton}>
+          <TouchableOpacity onPress={() => this.toogleVote('down')} style={styles.infoButton}>
             <Icon.Ionicons
               size={this.props.size + this.platformSettings.arrowsSize}
-              color={this.props.color}
+              color={this.state.vote == 'down' ? 'red' : this.props.color}
               name={this.platformSettings.arrowDown}
             />
             <View style={styles.buttonLabel}>

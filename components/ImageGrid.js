@@ -121,7 +121,7 @@ export default class ImageGrid extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.gridContainer}>
+      <View style={styles.gridContainer}>
         {this.header}
         <View style={{height: Dimensions.get('window').height}}>
           <Grid
@@ -132,7 +132,7 @@ export default class ImageGrid extends React.Component {
             renderPlaceholder={() => <View style={{backgroundColor: '#ededed'}} key={Math.random()}></View>}
           />
         </View>
-      </ScrollView>
+      </View>
     );
   }
 }
