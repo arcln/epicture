@@ -12,11 +12,10 @@ import {
 } from 'react-native';
 import {NavigationActions} from 'react-navigation'
 import ImageGrid from '../components/ImageGrid';
-import Imgur from '../api/Imgur';
 import IconButton from '../components/IconButton';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import ImgurConsts from '../constants/Imgur';
 import User from '../api/User';
+import AuthImgur from '../api/AuthImgur';
 
 export default class ProfileScreen extends React.Component {
 
@@ -34,9 +33,9 @@ export default class ProfileScreen extends React.Component {
   };
 
   async componentDidMount() {
-    this.imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret);
     const user = await User.get();
-    this.imgur.login(user.access_token);
+    this.imgur = new AuthImgur(user.access_token);
+
     if (!this.state.user) {
       await this.setState({user: user.account_username});
     }
@@ -47,6 +46,7 @@ export default class ProfileScreen extends React.Component {
       username: this.state.user,
     });
     this.setState({data: res.data.data, acc: acc.data.data});
+
     this.navListener = this.props.navigation.addListener('didFocus', () => {
       StatusBar.setBarStyle('light-content');
     });
@@ -54,7 +54,6 @@ export default class ProfileScreen extends React.Component {
 
   logout = () => {
     User.logout();
-    this.imgur.logout();
     this.props.navigation.dispatch(NavigationActions.back());
   }
 

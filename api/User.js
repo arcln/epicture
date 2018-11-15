@@ -10,8 +10,8 @@ class User {
     static async get() {
         let now = Date.now();
 
-        if (now - User.lastUpdate > 60 * 60 * 1000) {
-            User.cache = JSON.parse(await AsyncStorage.getItem('user'))
+        if (now - User.lastUpdate > 60 * 60 * 1000) { // 1 hour
+            User.cache = JSON.parse(await AsyncStorage.getItem('user'));
             User.lastUpdate = now;
             console.log('put user in memory cache');
         }
