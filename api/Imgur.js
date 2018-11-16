@@ -1,9 +1,13 @@
 import ApiBuilder from './ApiBuilder';
 
+const sortFilter = {name: 'sort', type: '/'};
+const windowFilter = {name: 'window', type: '/'};
+const pageFilter = {name: 'page', type: '/'};
+
 const sortWindowPageFilters = [
-  {name: 'sort', type: '/'},
-  {name: 'window', type: '/'},
-  {name: 'page', type: '/'},
+  sortFilter,
+  windowFilter,
+  pageFilter,
 ];
 
 export default class extends ApiBuilder {
@@ -100,6 +104,17 @@ export default class extends ApiBuilder {
           args: [{name: 'albumHash', type: '/'}],
           headers: ['bearer'],
           httpMethod: 'post'
+        },
+        { // https://apidocs.imgur.com/#a432a8e6-2ece-4544-bc7a-2999eb586f06
+          name: 'favorites',
+          url: '/3/account',
+          args: [
+            {name: 'username', type: '/'},
+            {name: null, type: '/', value: 'favorites'},
+            pageFilter,
+            sortFilter,
+          ],
+          headers: ['bearer'],
         },
       ],
       headers: () => {
