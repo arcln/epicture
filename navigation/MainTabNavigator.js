@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  Platform,
-  View,
-} from 'react-native';
+import {Platform, View} from 'react-native';
 import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -12,6 +9,7 @@ import ImageScreen from '../screens/ImageScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ProfileNavigator from './ProfileNavigator';
 import UploadScreen from '../screens/UploadScreen';
+import UploadingScreen from '../screens/UploadingScreen';
 
 const createTabLabel = (iconName, size, padding) => ({
   tabBarLabel: ' ',
@@ -52,11 +50,20 @@ const ExploreStack = createStackNavigator({
 
 ExploreStack.navigationOptions = createTabLabel('compass');
 
-const UploadStack = createStackNavigator({
-  Upload: {
-    screen: UploadScreen,
+const UploadStack = createStackNavigator(
+  {
+    Upload: {
+      screen: UploadScreen,
+    },
+    Uploading: {
+      screen: UploadingScreen,
+      navigationOptions: {
+        header: null,
+      },
+    },
   },
-});
+  {mode: 'modal'},
+);
 
 UploadStack.navigationOptions = createTabLabel('add-circle-outline', 34, 5);
 
