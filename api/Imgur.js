@@ -116,6 +116,18 @@ export default class extends ApiBuilder {
           ],
           headers: ['bearer'],
         },
+        {
+          name: 'share',
+          url: '/3/gallery/images',
+          args: [
+            {name: 'imageHash', type: '/'},
+            {name: 'title', type: '&'},
+            {name: 'topic', type: '&'},
+            {name: 'tags', type: '&'},
+          ],
+          headers: ['bearer'],
+          httpMethod: 'post',
+        },
       ],
       headers: () => {
         let bearer = `Bearer ${this.token}`;

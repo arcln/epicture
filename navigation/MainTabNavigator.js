@@ -10,6 +10,7 @@ import SearchScreen from '../screens/SearchScreen';
 import ProfileNavigator from './ProfileNavigator';
 import UploadScreen from '../screens/UploadScreen';
 import UploadingScreen from '../screens/UploadingScreen';
+import ShareScreen from '../screens/ShareScreen';
 
 const createTabLabel = (iconName, size, padding) => ({
   tabBarLabel: ' ',
@@ -60,6 +61,9 @@ const UploadStack = createStackNavigator(
       navigationOptions: {
         header: null,
       },
+    },
+    Share: {
+      screen: ShareScreen,
     },
   },
   {mode: 'modal'},

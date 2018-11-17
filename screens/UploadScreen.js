@@ -26,15 +26,17 @@ export default class UploadPromptScreen extends FeedScreen {
     return {
       title: 'Upload',
       headerRight: (
-        <Button
-          title='Post'
-          onPress={() => navigation.state.params.upload()}
-          disabled={
-            !navigation.state.params ||
-            !navigation.state.params.pick ||
-            !navigation.state.params.title
-          }
-        />
+        <View style={{paddingRight: 5}}>
+          <Button
+            title='Next'
+            onPress={() => navigation.state.params.upload()}
+            disabled={false
+              // !navigation.state.params ||
+              // !navigation.state.params.pick ||
+              // !navigation.state.params.title
+            }
+          />
+        </View>
       ),
     };
   };
@@ -86,10 +88,22 @@ export default class UploadPromptScreen extends FeedScreen {
     this.hideLoader();
 
     if (res.status === 200) {
+      const publish = () => {
+        this.props.navigation.push('Share', {
+          uri: this.state.pick.uri,
+          title: this.state.title,
+          imageHash: res.data.data.id,
+        });
+      };
+
       Alert.alert(
         'Upload success',
-        'Your image has been uploaded.',
-        [{text: 'OK'}, {text: 'Copy Link', onPress: () => Clipboard.setString(res.data.data.link)}],
+        'Your image is stored privately.',
+        [
+          {text: 'Pubish', onPress: publish},
+          {text: 'Copy Link', onPress: () => Clipboard.setString(res.data.data.link)},
+          {text: 'OK'},
+        ],
         {cancelable: false},
       );
     } else {
@@ -168,11 +182,7 @@ export default class UploadPromptScreen extends FeedScreen {
                   <Icon.Ionicons
                     size={24}
                     color='#000'
-                    name={
-                      Platform.OS === 'ios'
-                        ? 'ios-add-circle-outline'
-                        : 'md-add-circle-outline'
-                    }
+                    name={Platform.OS === 'ios' ? 'ios-camera' : 'md-camera'}
                   />
                 </View>
                 <View style={{flexDirection: 'row', justifyContent: 'center'}}>
