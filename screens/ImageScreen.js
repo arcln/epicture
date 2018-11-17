@@ -14,6 +14,7 @@ import ImageStats from '../components/ImageStats';
 import IconButton from '../components/IconButton';
 import User from '../api/User';
 import AuthImgur from '../api/AuthImgur';
+import {Video} from 'expo';
 
 export default class ImageScreen extends React.Component {
 
@@ -25,6 +26,10 @@ export default class ImageScreen extends React.Component {
     data: this.props.navigation.state.params && this.props.navigation.state.params.data || {},
     favorite: this.props.navigation.state.params.data.favorite,
   };
+
+  itemWidth = Dimensions.get('window').width;
+
+  getExt = i => i.link.substr(i.link.lastIndexOf('.'));
 
   async componentDidMount() {
     const user = await User.get();
@@ -50,16 +55,31 @@ export default class ImageScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <StatusBar barStyle='dark-content' />
-        {this.state.data.images.map((image, idx) => (
-          <AsyncImage
-            key={idx}
+        {this.state.data.images.map((image, idx) => this.getExt(image) === '.mp4' ? (
+          <Video
             source={{uri: image.link}}
-            width={this.state.itemWidth}
+            rate={1.0}
+            volume={1.0}
+            isMuted={false}
+            resizeMode="cover"
+            shouldPlay
+            isLooping
             style={{
-              width: Dimensions.get('window').width,
+              width: this.itemWidth,
+              height: this.itemWidth,
             }}
           />
-        ))}
+        ) : (
+            <AsyncImage
+              key={idx}
+              source={{uri: image.link}}
+              width={this.itemWidth}
+              style={{
+                width: Dimensions.get('window').width,
+              }}
+            />
+          )
+        )}
         <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 10}}>
           <View style={{paddingLeft: 10}}>
             <ImageStats size={16} color='#000' data={this.state.data} />

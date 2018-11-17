@@ -10,6 +10,7 @@ import Selector from '../components/Selector';
 import Colors from '../constants/Colors';
 import ImageStats from '../components/ImageStats';
 import AsyncImage from '../components/AsyncImage';
+import {Video} from 'expo';
 
 export default class ImageGrid extends React.Component {
 
@@ -20,10 +21,12 @@ export default class ImageGrid extends React.Component {
     displayedCount: 20,
   };
 
+  getExt = e => e.images && e.images[0] && e.images[0].link.substr(e.images[0].link.lastIndexOf('.'));
+
   updateData = data => {
     const newData = data.filter(e => {
-      const ext = e.images && e.images[0] && e.images[0].link.substr(e.images[0].link.lastIndexOf('.'));
-      return ['.jpg', '.png', '.gif'].includes(ext);
+      const ext = this.getExt(e);
+      return ['.jpg', '.png', '.gif', '.mp4'].includes(ext);
     }).slice(0, this.state.displayedCount);
 
     if (newData.length % 2) {
@@ -53,13 +56,31 @@ export default class ImageGrid extends React.Component {
     <View key={i} style={[styles.item, {maxWidth: this.state.itemWidth}]}>
       <TouchableHighlight onPress={() => this.props.itemPressed && this.props.itemPressed(i, data)}>
         <View>
-          <AsyncImage
-            source={{uri: data.images[0].link}}
-            style={{
-              width: Dimensions.get('window').width / this.state.itemPerRow - styles.item.margin * 2,
-              height: Dimensions.get('window').width / this.state.itemPerRow,
-            }}
-          />
+          {
+            this.getExt(data) === '.mp4' ? (
+              <Video
+                source={{uri: data.images[0].link}}
+                rate={1.0}
+                volume={1.0}
+                isMuted={true}
+                resizeMode="cover"
+                shouldPlay
+                isLooping
+                style={{
+                  width: this.state.itemWidth - 10,
+                  height: this.state.itemWidth,
+                }}
+              />
+            ) : (
+                <AsyncImage
+                  source={{uri: data.images[0].link}}
+                  style={{
+                    width: Dimensions.get('window').width / this.state.itemPerRow - styles.item.margin * 2,
+                    height: Dimensions.get('window').width / this.state.itemPerRow,
+                  }}
+                />
+              )
+          }
         </View>
       </TouchableHighlight>
       <View style={styles.stats}>
