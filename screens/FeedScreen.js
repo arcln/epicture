@@ -59,7 +59,6 @@ export default class FeedScreen extends React.Component {
           data={this.state.data}
           itemsPerRow={this.itemsPerRow}
           onEnd={() => {
-            console.log('ok')
             this.page += 1;
             this.fetchData(this.page);
           }}

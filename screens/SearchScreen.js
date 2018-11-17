@@ -5,6 +5,7 @@ import {
   Platform,
   StyleSheet,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Icon} from 'expo';
@@ -22,6 +23,7 @@ export default class SearchScreen extends React.Component {
     sort: 'time',
     window: 'all',
     data: [],
+    loading: false,
   };
 
   searchTriggerTimeout = null;
@@ -34,6 +36,8 @@ export default class SearchScreen extends React.Component {
       return;
     }
 
+    await this.setState({loading: true});
+
     const {data: {status, data}} = await this.imgur.gallerySearch({
       q: this.state.query,
       sort: this.state.sort,
@@ -43,6 +47,8 @@ export default class SearchScreen extends React.Component {
     if (status === 200) {
       this.setState({data});
     }
+
+    await this.setState({loading: false});
   };
 
   refreshTrigger = forceUpdate => {
@@ -97,11 +103,16 @@ export default class SearchScreen extends React.Component {
         <StatusBar barStyle='dark-content' />
         <View style={{paddingTop: getStatusBarHeight(), backgroundColor: '#fff'}}>
           <View style={styles.searchBar}>
-            <Icon.Ionicons
-              size={24}
-              color='#ccc'
-              name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
-            />
+            {
+              !this.state.loading ? (
+                <Icon.Ionicons
+                  size={20}
+                  style={{marginRight: 5}}
+                  color='#ccc'
+                  name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
+                />
+              ) : (<ActivityIndicator animating={true} />)
+            }
             <TextInput
               style={{fontSize: 18, marginLeft: 10}}
               onChangeText={this.queryChanged}
