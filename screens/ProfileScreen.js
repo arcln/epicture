@@ -80,12 +80,16 @@ export default class ProfileScreen extends React.Component {
                   <Text style={styles.accountName}>@{this.state.user}</Text>
                   <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                     <Text style={styles.accountReputation}>{this.state.acc.reputation} points - {this.state.acc.reputation_name}</Text>
-                    <View style={{marginTop: 3, marginLeft: 6}}><IconButton
-                        name={Platform.OS === 'ios' ? 'ios-log-out' : 'md-log-out'}
-                        size={14}
-                        color='#333'
-                        onPress={this.logout}
-                    /></View>
+                    {this.props.navigation && this.props.navigation.state.params && this.props.navigation.state.params.account ? null : (
+                      <View style={{marginTop: 3, marginLeft: 6}}>
+                        <IconButton
+                          name={Platform.OS === 'ios' ? 'ios-log-out' : 'md-log-out'}
+                          size={14}
+                          color='#eee'
+                          onPress={this.logout}
+                        />
+                      </View>
+                    )}
                   </View>
                 </View>
                 <View style={[styles.profileContainer, {flex: 3, flexDirection: 'row', justifyContent: 'center'}]}>
@@ -111,12 +115,15 @@ export default class ProfileScreen extends React.Component {
         <View style={{flex: 1}}>
           <ImageGrid
             data={this.state.data}
-            itemPressed={(_, data) => this.props.navigation.push('Image', {data})}
+            itemPressed={(_, data) => {
+              console.log(data);
+              this.props.navigation.push('Image', {data})
+            }}
             disableRowSizeSelect={true}
             itemsPerRow={2}
           />
         </View>
-      </ScrollView >
+      </ScrollView>
     );
   }
 }

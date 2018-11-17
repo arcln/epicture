@@ -24,10 +24,18 @@ export default class ImageGrid extends React.Component {
   getExt = e => e.images && e.images[0] && e.images[0].link.substr(e.images[0].link.lastIndexOf('.'));
 
   updateData = data => {
-    const newData = data.filter(e => {
-      const ext = this.getExt(e);
-      return ['.jpg', '.png', '.gif', '.mp4'].includes(ext);
-    }).slice(0, this.state.displayedCount);
+    const newData = data
+      .map(e => {
+        if (!e.images) {
+          e = {images: [e]};
+        }
+        return e;
+      })
+      .filter(e => {
+        const ext = this.getExt(e);
+        return ['.jpg', '.png', '.gif', '.mp4'].includes(ext);
+      })
+      .slice(0, this.state.displayedCount);
 
     if (newData.length % 2) {
       newData[newData.length - 1] = undefined;
