@@ -4,31 +4,31 @@ import {
   StyleSheet,
   TouchableHighlight,
   View,
-  ScrollView,
-  Text,
-  Platform,
   Dimensions,
 } from 'react-native';
-import OptionsMenu from 'react-native-options-menu';
+import Selector from '../components/Selector';
 import Colors from '../constants/Colors';
-import {Icon} from 'expo';
 import ImageStats from '../components/ImageStats';
 import AsyncImage from '../components/AsyncImage';
 
 export default class ImageGrid extends React.Component {
 
   state = {
-    itemPerRow: this.props.itemsPerRow,
-    itemWidth: Dimensions.get('window').width / this.props.itemsPerRow,
+    itemPerRow: this.props.itemsPerRow || 2,
+    itemWidth: Dimensions.get('window').width / (this.props.itemsPerRow || 2),
     displayedData: [],
     displayedCount: 20,
   };
 
   updateData = data => {
     const newData = data.filter(e => {
-      const ext = e.images && e.images[0].link.substr(e.images[0].link.lastIndexOf('.'));
+      const ext = e.images && e.images[0] && e.images[0].link.substr(e.images[0].link.lastIndexOf('.'));
       return ['.jpg', '.png', '.gif'].includes(ext);
     }).slice(0, this.state.displayedCount);
+
+    if (newData.length % 2) {
+      newData[newData.length - 1] = undefined;
+    }
 
     if (newData.length < this.state.displayedCount) {
       newData.push(...Array(this.state.displayedCount - newData.length).map((_, idx) => ({key: newData.length + idx})));
@@ -50,7 +50,7 @@ export default class ImageGrid extends React.Component {
   };
 
   renderItem = (data, i) => (
-    <View key={i} style={styles.item}>
+    <View key={i} style={[styles.item, {maxWidth: this.state.itemWidth}]}>
       <TouchableHighlight onPress={() => this.props.itemPressed && this.props.itemPressed(i, data)}>
         <View>
           <AsyncImage
@@ -74,44 +74,20 @@ export default class ImageGrid extends React.Component {
         <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignContent: 'center', padding: 10}}>
           {this.props.sortOptions ? (
             <View style={{flexDirection: 'row'}}>
-              <OptionsMenu
+              <Selector
                 options={this.props.sortOptions}
-                customButton={(
-                  <View style={{flexDirection: 'row'}}>
-                    <Icon.Ionicons
-                      name={Platform.OS === 'ios' ? 'ios-arrow-down' : 'md-arrow-down'}
-                      style={{color: Colors.tintColor, paddingTop: 3}}
-                    />
-                    <Text style={{color: Colors.tintColor}}> Popular</Text>
-                  </View>
-                )}
-                actions={[
-                  this.props.onSort && this.props.onSort.bind(null, this.props.sortOptions[0]) || (_ => null),
-                  this.props.onSort && this.props.onSort.bind(null, this.props.sortOptions[1]) || (_ => null),
-                  this.props.onSort && this.props.onSort.bind(null, this.props.sortOptions[2]) || (_ => null),
-                  _ => null
-                ]} />
+                default='Popular'
+                onChange={this.props.onSort}
+              />
             </View>
           ) : null}
           {this.props.disableRowSizeSelect ? null : (
             <View style={{flexDirection: 'row', paddingLeft: 20}}>
-              <OptionsMenu
-                options={['1', '2', '3', 'Cancel']}
-                customButton={(
-                  <View style={{flexDirection: 'row'}}>
-                    <Icon.Ionicons
-                      name={Platform.OS === 'ios' ? 'ios-arrow-down' : 'md-arrow-down'}
-                      style={{color: Colors.tintColor, paddingTop: 3}}
-                    />
-                    <Text style={{color: Colors.tintColor}}> Items per row</Text>
-                  </View>
-                )}
-                actions={[
-                  () => this.setState({itemPerRow: 1}),
-                  () => this.setState({itemPerRow: 2}),
-                  () => this.setState({itemPerRow: 3}),
-                  _ => null
-                ]} />
+              <Selector
+                options={['1 item per row', '2 items per row']}
+                default='2 items per row'
+                onChange={value => this.setState({itemPerRow: parseInt(value)})}
+              />
             </View>
           )}
         </View>
@@ -139,6 +115,7 @@ export default class ImageGrid extends React.Component {
 
 styles = StyleSheet.create({
   gridContainer: {
+    justifyContent: 'flex-start',
     flex: 1,
     backgroundColor: Colors.backgroundColor,
   },
@@ -146,7 +123,7 @@ styles = StyleSheet.create({
     padding: 5,
   },
   item: {
-    flex: 1,
+    // flex: 1,
     margin: 5,
     backgroundColor: 'white',
     borderRadius: 5,
