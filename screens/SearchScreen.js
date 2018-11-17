@@ -59,7 +59,7 @@ export default class SearchScreen extends React.Component {
     if (forceUpdate) {
       this.search();
     } else {
-      this.searchTriggerTimeout = setTimeout(this.search, 1000);
+      this.searchTriggerTimeout = setTimeout(this.search, 500);
     }
   };
 

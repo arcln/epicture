@@ -14,9 +14,9 @@ export default class {
         let routeHeaders = route.headers ? route.headers.reduce((acc, h) => ({...acc, ...this.getHeader(h)}), {}) : {};
         let headers = {...this.headers(), ...routeHeaders}
 
-        console.log('query:', query);
-        console.log('headers:', JSON.stringify(headers, null, 2));
-        console.log('method:', httpMethod);
+        // console.log('query:', query);
+        // console.log('headers:', JSON.stringify(headers, null, 2));
+        // console.log('method:', httpMethod);
 
         return (httpMethod == 'get'
           ? this.axios[httpMethod](query, {headers})
@@ -50,7 +50,7 @@ export default class {
 
     if (typeof prefix == 'function') {
       suffix = suffix.split('?')
-      console.log(prefix(suffix[0]), suffix)
+      // console.log(prefix(suffix[0]), suffix)
       return prefix(suffix[0]) + (suffix[1] ? suffix[1] : '');
     }
     return prefix + suffix;

@@ -19,6 +19,7 @@ import {Video} from 'expo';
 export default class ImageScreen extends React.Component {
 
   static navigationOptions = ({navigation}) => ({
+    ...navigation.state.params,
     title: navigation.state.params && navigation.state.params.title || 'Image',
   });
 
@@ -87,8 +88,8 @@ export default class ImageScreen extends React.Component {
               style={{paddingLeft: 3}}>Posted by&nbsp;
               <Text
                 style={{fontWeight: 'bold'}}
-                onPress={() => this.props.navigation.push('Profile', {account: this.state.data.account_url})}
-              >@{this.state.data.account_url}</Text>
+                onPress={() => this.props.navigation.push('Profile', {account: this.state.data.account_url || this.state.data.images[0].account_url})}
+              >@{this.state.data.account_url || this.state.data.images[0].account_url}</Text>
             </Text>
           </View>
           <View style={{marginRight: 20}}>

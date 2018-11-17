@@ -13,7 +13,6 @@ class User {
         if (now - User.lastUpdate > 60 * 60 * 1000) { // 1 hour
             User.cache = JSON.parse(await AsyncStorage.getItem('user'));
             User.lastUpdate = now;
-            console.log('put user in memory cache');
         }
 
         return User.cache;
