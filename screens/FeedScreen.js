@@ -53,7 +53,7 @@ export default class FeedScreen extends React.Component {
         <StatusBar barStyle='dark-content' />
         <ImageGrid
           itemPressed={(_, data) => this.props.navigation.push('Image', {data})}
-          sortOptions={this.showViewOptions ? ['Popular', 'Trending', 'User Submitted', 'Cancel'] : null}
+          sortOptions={this.showViewOptions ? ['Popular', 'Trending', 'User Submitted'] : null}
           disableRowSizeSelect={!this.showViewOptions}
           onSort={this.sortBy}
           data={this.state.data}

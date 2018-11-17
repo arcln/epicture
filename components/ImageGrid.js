@@ -4,14 +4,10 @@ import {
   StyleSheet,
   TouchableHighlight,
   View,
-  ScrollView,
-  Text,
-  Platform,
   Dimensions,
 } from 'react-native';
-import OptionsMenu from 'react-native-options-menu';
+import Selector from '../components/Selector';
 import Colors from '../constants/Colors';
-import {Icon} from 'expo';
 import ImageStats from '../components/ImageStats';
 import AsyncImage from '../components/AsyncImage';
 
@@ -74,44 +70,20 @@ export default class ImageGrid extends React.Component {
         <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignContent: 'center', padding: 10}}>
           {this.props.sortOptions ? (
             <View style={{flexDirection: 'row'}}>
-              <OptionsMenu
+              <Selector
                 options={this.props.sortOptions}
-                customButton={(
-                  <View style={{flexDirection: 'row'}}>
-                    <Icon.Ionicons
-                      name={Platform.OS === 'ios' ? 'ios-arrow-down' : 'md-arrow-down'}
-                      style={{color: Colors.tintColor, paddingTop: 3}}
-                    />
-                    <Text style={{color: Colors.tintColor}}> Popular</Text>
-                  </View>
-                )}
-                actions={[
-                  this.props.onSort && this.props.onSort.bind(null, this.props.sortOptions[0]) || (_ => null),
-                  this.props.onSort && this.props.onSort.bind(null, this.props.sortOptions[1]) || (_ => null),
-                  this.props.onSort && this.props.onSort.bind(null, this.props.sortOptions[2]) || (_ => null),
-                  _ => null
-                ]} />
+                default='Popular'
+                onChange={this.props.onSort}
+              />
             </View>
           ) : null}
           {this.props.disableRowSizeSelect ? null : (
             <View style={{flexDirection: 'row', paddingLeft: 20}}>
-              <OptionsMenu
-                options={['1', '2', '3', 'Cancel']}
-                customButton={(
-                  <View style={{flexDirection: 'row'}}>
-                    <Icon.Ionicons
-                      name={Platform.OS === 'ios' ? 'ios-arrow-down' : 'md-arrow-down'}
-                      style={{color: Colors.tintColor, paddingTop: 3}}
-                    />
-                    <Text style={{color: Colors.tintColor}}> Items per row</Text>
-                  </View>
-                )}
-                actions={[
-                  () => this.setState({itemPerRow: 1}),
-                  () => this.setState({itemPerRow: 2}),
-                  () => this.setState({itemPerRow: 3}),
-                  _ => null
-                ]} />
+              <Selector
+                options={['1', '2']}
+                default='2'
+                onChange={value => this.setState({itemPerRow: parseInt(value)})}
+              />
             </View>
           )}
         </View>
