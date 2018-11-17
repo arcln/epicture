@@ -14,8 +14,8 @@ import AsyncImage from '../components/AsyncImage';
 export default class ImageGrid extends React.Component {
 
   state = {
-    itemPerRow: this.props.itemsPerRow,
-    itemWidth: Dimensions.get('window').width / this.props.itemsPerRow,
+    itemPerRow: this.props.itemsPerRow || 2,
+    itemWidth: Dimensions.get('window').width / (this.props.itemsPerRow || 2),
     displayedData: [],
     displayedCount: 20,
   };
@@ -25,6 +25,10 @@ export default class ImageGrid extends React.Component {
       const ext = e.images && e.images[0] && e.images[0].link.substr(e.images[0].link.lastIndexOf('.'));
       return ['.jpg', '.png', '.gif'].includes(ext);
     }).slice(0, this.state.displayedCount);
+
+    if (newData.length % 2) {
+      newData[newData.length - 1] = undefined;
+    }
 
     if (newData.length < this.state.displayedCount) {
       newData.push(...Array(this.state.displayedCount - newData.length).map((_, idx) => ({key: newData.length + idx})));
@@ -46,7 +50,7 @@ export default class ImageGrid extends React.Component {
   };
 
   renderItem = (data, i) => (
-    <View key={i} style={styles.item}>
+    <View key={i} style={[styles.item, {maxWidth: this.state.itemWidth}]}>
       <TouchableHighlight onPress={() => this.props.itemPressed && this.props.itemPressed(i, data)}>
         <View>
           <AsyncImage
@@ -80,8 +84,8 @@ export default class ImageGrid extends React.Component {
           {this.props.disableRowSizeSelect ? null : (
             <View style={{flexDirection: 'row', paddingLeft: 20}}>
               <Selector
-                options={['1', '2']}
-                default='2'
+                options={['1 item per row', '2 items per row']}
+                default='2 items per row'
                 onChange={value => this.setState({itemPerRow: parseInt(value)})}
               />
             </View>
@@ -111,6 +115,7 @@ export default class ImageGrid extends React.Component {
 
 styles = StyleSheet.create({
   gridContainer: {
+    justifyContent: 'flex-start',
     flex: 1,
     backgroundColor: Colors.backgroundColor,
   },
@@ -118,7 +123,7 @@ styles = StyleSheet.create({
     padding: 5,
   },
   item: {
-    flex: 1,
+    // flex: 1,
     margin: 5,
     backgroundColor: 'white',
     borderRadius: 5,

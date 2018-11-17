@@ -27,7 +27,6 @@ export default class extends ApiBuilder {
           ]
         },
         { // https://apidocs.imgur.com/#3c981acf-47aa-488f-b068-269f65aee3ce
-          // FIXME not tested
           name: 'gallerySearch',
           url: '/3/gallery/search',
           args: [...sortWindowPageFilters, {name: 'q', type: '&'}]

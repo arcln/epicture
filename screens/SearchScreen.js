@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Text,
   View,
   TextInput,
   Platform,
@@ -10,14 +9,19 @@ import {
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {Icon} from 'expo';
 import Selector from '../components/Selector';
-import Colors from '../constants/Colors';
+import Imgur from '../api/Imgur';
+import ImgurConsts from '../constants/Imgur';
+import ImageGrid from '../components/ImageGrid';
 
 export default class SearchScreen extends React.Component {
+
+  imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret);
 
   state = {
     query: '',
     sort: 'time',
     window: 'all',
+    data: [],
   };
 
   searchTriggerTimeout = null;
@@ -25,12 +29,20 @@ export default class SearchScreen extends React.Component {
   static navigationOptions = ({navigation}) => ({
   });
 
-  search = () => {
-    if (!query.length) {
+  search = async () => {
+    if (!this.state.query.length) {
       return;
     }
 
-    console.log('search', this.state);
+    const {data: {status, data}} = await this.imgur.gallerySearch({
+      q: this.state.query,
+      sort: this.state.sort,
+      window: this.state.window,
+    });
+
+    if (status === 200) {
+      this.setState({data});
+    }
   };
 
   refreshTrigger = forceUpdate => {
@@ -82,16 +94,16 @@ export default class SearchScreen extends React.Component {
   render() {
     return (
       <View>
+        <StatusBar barStyle='dark-content' />
         <View style={{paddingTop: getStatusBarHeight(), backgroundColor: '#fff'}}>
           <View style={styles.searchBar}>
             <Icon.Ionicons
               size={24}
               color='#ccc'
-              style={{paddingRight: 10}}
               name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
             />
             <TextInput
-              style={{fontSize: 18}}
+              style={{fontSize: 18, marginLeft: 10}}
               onChangeText={this.queryChanged}
               value={this.state.query}
               placeholder='Search Imgur'
@@ -109,6 +121,13 @@ export default class SearchScreen extends React.Component {
             options={['Today', 'This week', 'This month', 'This year', 'All time']}
             default='All time'
             onChange={value => this.selectorChanged('window', value)}
+          />
+        </View>
+        <View>
+          <ImageGrid
+            itemPressed={(_, data) => this.props.navigation.push('Image', {data})}
+            sortOptions={null}
+            data={this.state.data}
           />
         </View>
       </View>
