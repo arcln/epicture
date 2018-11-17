@@ -24,6 +24,21 @@ export default class FavoritesScreen extends React.Component {
     this.fetchData();
   }
 
+  componentWillMount() {
+    this.navListener = this.props.navigation && this.props.navigation.addListener('didFocus', async () => {
+      if (!this.imgur)
+        return;
+      this.page = 0;
+      let res = await this.getFavorites();
+      this.setState({data: res.data.data});
+    });
+  }
+
+  componentWillUnmount() {
+    this.navListener.remove();
+  }
+
+
   static navigationOptions = ({navigation}) => {
     if (!navigation.state.params) {
       return {
@@ -34,15 +49,15 @@ export default class FavoritesScreen extends React.Component {
     return navigation.state.params;
   };
 
-  async fetchData() {
-    const res = await this.imgur.favorites({
+  async getFavorites() {
+    return await this.imgur.favorites({
       username: this.state.user.account_username,
       page: this.page,
     });
-    console.log({
-      username: this.state.user.account_username,
-      page: this.page,
-    })
+  }
+
+  async fetchData() {
+    const res = await this.getFavorites();
     this.setState({data: [...this.state.data, ...res.data.data]});
   };
 
