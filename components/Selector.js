@@ -16,7 +16,6 @@ export default class Selector extends React.Component {
   };
 
   render() {
-    console.log(Array(this.props.options.length))
     return (
       <OptionsMenu
         options={[...this.props.options, 'Cancel']}

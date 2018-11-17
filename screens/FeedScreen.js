@@ -36,7 +36,6 @@ export default class FeedScreen extends React.Component {
       ...this.query,
       page: this.page,
     });
-
     this.setState({data: [...(reset ? [] : this.state.data), ...res.data.data]});
   };
 
@@ -66,7 +65,7 @@ export default class FeedScreen extends React.Component {
         <ImageGrid
           itemPressed={(_, data) => this.props.navigation.push('Image', {data})}
           sortOptions={this.showViewOptions ? ['Popular', 'Trending', 'User Submitted'] : null}
-          disableRowSizeSelect={!this.showViewOptions}
+          disableRowSizeSelect={true}
           onSort={this.sortBy}
           data={this.state.data}
           itemsPerRow={this.itemsPerRow}

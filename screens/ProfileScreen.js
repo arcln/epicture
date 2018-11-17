@@ -115,10 +115,7 @@ export default class ProfileScreen extends React.Component {
         <View style={{flex: 1}}>
           <ImageGrid
             data={this.state.data}
-            itemPressed={(_, data) => {
-              console.log(data);
-              this.props.navigation.push('Image', {data})
-            }}
+            itemPressed={(_, data) => this.props.navigation.push('Image', {data})}
             disableRowSizeSelect={true}
             itemsPerRow={2}
           />

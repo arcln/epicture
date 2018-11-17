@@ -15,7 +15,7 @@ import {Video} from 'expo';
 export default class ImageGrid extends React.Component {
 
   state = {
-    itemPerRow: this.props.itemsPerRow || 2,
+    itemPerRow: this.props.itemsPerRow,
     itemWidth: Dimensions.get('window').width / (this.props.itemsPerRow || 2),
     displayedData: [],
     displayedCount: 20,
