@@ -43,6 +43,7 @@ export default class ImageScreen extends React.Component {
   async toogleFavorite(id) {
     let data = (await this.imgur.toogleFavorite({albumHash: id})).data.data;
     await this.setState({favorite: data == 'favorited'});
+    this.props.navigation.state.params.data.favorite = this.state.favorite;
   }
 
   render() {
