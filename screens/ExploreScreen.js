@@ -16,7 +16,7 @@ export default class ExploreScreen extends FeedScreen {
       StatusBar.setBarStyle('dark-content');
     });
 
-    this.setQuery({section: 'hot'});
+    this.setQuery({section: 'top'});
   }
 
   componentWillUnmount() {

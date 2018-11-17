@@ -28,23 +28,35 @@ export default class FeedScreen extends React.Component {
 
   setQuery = query => {
     this.query = query;
-    this.fetchData();
+    this.fetchData(true);
   };
 
-  fetchData = async () => {
+  fetchData = async reset => {
     const res = await this.imgur.gallery({
       ...this.query,
       page: this.page,
     });
-    console.log({
-      ...this.query,
-      page: this.page,
-    })
-    this.setState({data: [...this.state.data, ...res.data.data]});
+
+    this.setState({data: [...(reset ? [] : this.state.data), ...res.data.data]});
   };
 
-  sortBy = key => {
-    this.props.navigation.setParams({title: key});
+  sortBy = sort => {
+    this.setQuery((() => {
+      switch (sort) {
+        case 'Popular': return {section: 'top'};
+        case 'Trending': return {section: 'user', sort: 'rising'};
+        case 'User Submitted': return {section: 'user'};
+        default: return {section: 'hot'};
+      }
+    })());
+    console.log((() => {
+      switch (sort) {
+        case 'Popular': return {section: 'top'};
+        case 'Trending': return {section: 'user', sort: 'rising'};
+        case 'User Submitted': return {section: 'user'};
+        default: return {section: 'hot'};
+      }
+    })())
   };
 
   render() {
@@ -60,7 +72,7 @@ export default class FeedScreen extends React.Component {
           itemsPerRow={this.itemsPerRow}
           onEnd={() => {
             this.page += 1;
-            this.fetchData(this.page);
+            this.fetchData();
           }}
         />
       </View>
