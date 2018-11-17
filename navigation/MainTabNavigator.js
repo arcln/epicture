@@ -9,8 +9,8 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import ExploreScreen from '../screens/ExploreScreen';
 import ImageScreen from '../screens/ImageScreen';
-import ProfileScreen from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
+import ProfileNavigator from './ProfileNavigator';
 // import SettingsScreen from '../screens/SettingsScreen';
 
 const createTabLabel = (iconName, size, padding) => ({
@@ -30,7 +30,7 @@ const HomeStack = createStackNavigator({
   Home: HomeScreen,
   Image: ImageScreen,
   Profile: {
-    screen: ProfileScreen,
+    screen: ProfileNavigator,
     navigationOptions: {
       header: null,
     },
@@ -43,7 +43,7 @@ const ExploreStack = createStackNavigator({
   Explore: ExploreScreen,
   Image: ImageScreen,
   Profile: {
-    screen: ProfileScreen,
+    screen: ProfileNavigator,
     navigationOptions: {
       header: null,
     },
@@ -54,7 +54,7 @@ ExploreStack.navigationOptions = createTabLabel('compass');
 
 const UploadStack = createStackNavigator({
   Profile: {
-    screen: ProfileScreen,
+    screen: ProfileNavigator,
     navigationOptions: {
       header: null,
     },
@@ -73,7 +73,7 @@ const SearchStack = createStackNavigator({
   },
   Image: ImageScreen,
   Profile: {
-    screen: ProfileScreen,
+    screen: ProfileNavigator,
     navigationOptions: {
       header: null,
     },
@@ -84,14 +84,14 @@ SearchStack.navigationOptions = createTabLabel('search');
 
 const ProfileStack = createStackNavigator({
   Profile: {
-    screen: ProfileScreen,
+    screen: ProfileNavigator,
     navigationOptions: {
       header: null,
     },
   },
   Image: ImageScreen,
   Profile: {
-    screen: ProfileScreen,
+    screen: ProfileNavigator,
     navigationOptions: {
       header: null,
     },

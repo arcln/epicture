@@ -99,7 +99,7 @@ export default class ImageGrid extends React.Component {
     return (
       <View style={styles.gridContainer}>
         {this.header}
-        <View style={{height: Dimensions.get('window').height}}>
+        <View style={{height: Dimensions.get('window').height, paddingBottom: 50}}>
           <Grid
             renderItem={this.renderItem}
             data={this.state.displayedData}

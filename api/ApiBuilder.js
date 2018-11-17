@@ -29,10 +29,13 @@ export default class {
   buildQuery(prefix, opts, args) {
     let secondaryArgsType = '?';
     let suffix = args.map(arg => {
-      if (!Object.keys(opts).includes(arg.name))
+      let opt = opts[arg.name];
+
+      if (arg.value)
+        opt = arg.value;
+      else if (!Object.keys(opts).includes(arg.name))
         return null;
 
-      let opt = opts[arg.name];
       switch (arg.type) {
         case '/':
           return `/${opt}`
