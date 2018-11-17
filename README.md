@@ -8,6 +8,8 @@
 3. [Imgur API](#imgur-api)
     1. [Usage](#imgur-usage)
     2. [Examples](#examples)
+    2. [Utils](#utils)
+    2. [Routes](#routes)
 
 ## The project
 ### Summary
@@ -58,11 +60,11 @@ imgur.logout();
 ### Routes
 [Account](https://apidocs.imgur.com/#c94c8719-fe68-4854-b96d-70735dd8b2bc)
 ``` js
-imgur.account(username);
+imgur.account({username});
 ```
 [Account submissions](https://apidocs.imgur.com/#286367c1-bb24-4e74-bad9-d2c75b943b3c)
 ``` js
-imgur.accountSubmissions(username);
+imgur.accountSubmissions({username});
 ```
 [Account images](https://apidocs.imgur.com/#ee366f7c-69e6-46fd-bf26-e93303f64c84)
 ``` js
@@ -70,41 +72,41 @@ imgur.accountImages();
 ```
 [Upvote](https://apidocs.imgur.com/#23e5f110-318a-4872-9888-1bb1f864b360)
 ``` js
-imgur.upvote(galleryHash);
+imgur.upvote({galleryHash});
 ```
 [Downvote](https://apidocs.imgur.com/#23e5f110-318a-4872-9888-1bb1f864b360)
 ``` js
-imgur.downvote(galleryHash);
+imgur.downvote({galleryHash});
 ```
 [Unvote](https://apidocs.imgur.com/#23e5f110-318a-4872-9888-1bb1f864b360)
 ``` js
-imgur.unvote(galleryHash);
+imgur.unvote({galleryHash});
 ```
 [Toogle favorite](https://apidocs.imgur.com/#31c72664-59c1-426f-98d7-ac7ad6547cc2)
 ``` js
-imgur.toogleFavorite(albumHash);
+imgur.toogleFavorite({albumHash});
 ```
 [Favorites](https://apidocs.imgur.com/#a432a8e6-2ece-4544-bc7a-2999eb586f06)
 ``` js
-imgur.favorites(username, , page, sort);
+imgur.favorites({username, page, sort});
 ```
 [Share](https://apidocs.imgur.com/#39729532-1f9f-4b56-ba26-f4ef8d757ef1)
 ``` js
-imgur.share(imageHash, title, topic, tags);
+imgur.share({imageHash, title, topic, tags});
 ```
 [Gallery](https://apidocs.imgur.com/#eff60e84-5781-4c12-926a-208dc4c7cc94)
 ``` js
-imgur.gallery(section, sort, window, page, showViral, mature, album_previews);
+imgur.gallery({section, sort, window, page, showViral, mature, album_previews});
 ```
 [Gallery search](https://apidocs.imgur.com/#3c981acf-47aa-488f-b068-269f65aee3ce)
 ``` js
-imgur.gallerySearch(sort, window, page, q);
+imgur.gallerySearch({sort, window, page, q});
 ```
 [Gallery image](https://apidocs.imgur.com/#6b97ac3f-0fbc-43d9-bb8e-47321ee6dc46)
 ``` js
-imgur.galleryImage(galleryImageHash);
+imgur.galleryImage({galleryImageHash});
 ```
 [Gallery tag](https://apidocs.imgur.com/#0f89160b-8bb3-40c5-b17b-a02cc8a2f73d)
 ``` js
-imgur.galleryTag(tagName, sort, window, page);
+imgur.galleryTag({tagName, sort, window, page});
 ```
