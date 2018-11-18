@@ -119,7 +119,7 @@ export default class LandingScreen extends React.Component {
               ]
             }]}>
               <AutoImage
-                source={require('../assets/images/splash.png')}
+                source={require('../assets/images/splash-inverted.png')}
                 width={Dimensions.get('window').width}
               />
             </Animated.View>
@@ -147,7 +147,7 @@ export default class LandingScreen extends React.Component {
           justifyContent: 'center',
           opacity: this.state.textOpacity,
         }}>
-          <Text>The magic of the internet</Text>
+          <Text style={{color: '#fff'}}>The magic of the internet</Text>
         </Animated.View>
         <Animated.View style={{
           opacity: this.state.splashOpacity,
