@@ -22,8 +22,8 @@
 To build this project locally with expo, you just to follow these steps
 1. Install [nodejs](https://nodejs.org/en/download/)
 2. Clone Epicture repository
-3. run `npm i`
-4. run npm start
+3. Run `npm i`
+4. Run `npm start`
 5. Follow the guide on how to [scan an expo QR core](#expo-qr-code). Replace the given url by the one shown in your terminal.
 
 ### Expo QR code
