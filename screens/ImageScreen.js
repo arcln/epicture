@@ -12,6 +12,7 @@ import AutoImage from 'react-native-auto-height-image';
 import AsyncImage from '../components/AsyncImage';
 import ImageStats from '../components/ImageStats';
 import IconButton from '../components/IconButton';
+import ImageComments from '../components/ImageComments';
 import User from '../api/User';
 import AuthImgur from '../api/AuthImgur';
 import {Video} from 'expo';
@@ -102,6 +103,7 @@ export default class ImageScreen extends React.Component {
             />
           </View>
         </View>
+        <ImageComments galleryHash={this.state.data.id ? this.state.data.id : this.state.data.images[0].id} />
       </ScrollView>
     );
   }

@@ -13,14 +13,19 @@ export default class {
         let query = this.buildQuery(route.url, opts, route.args);
         let routeHeaders = route.headers ? route.headers.reduce((acc, h) => ({...acc, ...this.getHeader(h)}), {}) : {};
         let headers = {...this.headers(), ...routeHeaders}
+        let postOpts = !route.opts ? {} : route.opts.reduce((acc, opt) => {
+          acc[opt] = opts[opt];
+          return acc;
+        }, {});
 
         // console.log('query:', query);
         // console.log('headers:', JSON.stringify(headers, null, 2));
         // console.log('method:', httpMethod);
+        // console.log('opts:', postOpts);
 
         return (httpMethod == 'get'
           ? this.axios[httpMethod](query, {headers})
-          : this.axios[httpMethod](query, {}, {headers}))
+          : this.axios[httpMethod](query, postOpts, {headers}))
           .catch(this.errorHandler);
       };
     });
@@ -28,7 +33,7 @@ export default class {
 
   buildQuery(prefix, opts, args) {
     let secondaryArgsType = '?';
-    let suffix = args.map(arg => {
+    let suffix = !args ? '' : args.map(arg => {
       let opt = opts[arg.name];
 
       if (arg.value)

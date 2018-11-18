@@ -128,6 +128,23 @@ export default class extends ApiBuilder {
           headers: ['bearer'],
           httpMethod: 'post',
         },
+        { // https://apidocs.imgur.com/#01dce1de-f332-4a14-88fa-25f97cc13613
+          name: 'comment',
+          url: '/3/comment',
+          opts: ['image_id', 'comment', 'parent_id'],
+          headers: ['bearer'],
+          httpMethod: 'post',
+        },
+        { // https://apidocs.imgur.com/#b95843d0-0036-4486-8e64-152338f88872
+          name: 'getComments',
+          url: '/3/gallery',
+          args: [
+            {name: 'galleryHash', type: '/'},
+            {name: null, type: '/', value: 'comments'},
+            {name: 'commentSort', type: '&'},
+          ],
+          headers: ['clientId'],
+        },
       ],
       headers: () => {
         let bearer = `Bearer ${this.token}`;
