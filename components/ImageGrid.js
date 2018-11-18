@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableHighlight,
   View,
+  Text,
   Dimensions,
 } from 'react-native';
 import Selector from '../components/Selector';
@@ -15,13 +16,16 @@ import {Video} from 'expo';
 export default class ImageGrid extends React.Component {
 
   state = {
-    itemPerRow: this.props.itemsPerRow,
+    itemPerRow: this.props.itemsPerRow || 2,
     itemWidth: Dimensions.get('window').width / (this.props.itemsPerRow || 2),
     displayedData: [],
     displayedCount: 20,
   };
 
-  getExt = e => e.images && e.images[0] && e.images[0].link.substr(e.images[0].link.lastIndexOf('.'));
+  getExt = e => {
+    console.log(e.images && e.images[0] && e.images[0].link.substr(e.images[0].link.lastIndexOf('.')))
+    return e.images && e.images[0] && e.images[0].link.substr(e.images[0].link.lastIndexOf('.'))
+  };
 
   updateData = data => {
     const newData = data
@@ -29,6 +33,7 @@ export default class ImageGrid extends React.Component {
         if (!e.images) {
           e = {images: [e]};
         }
+        console.log(e.images[0].link)
         return e;
       })
       .filter(e => {
@@ -61,7 +66,7 @@ export default class ImageGrid extends React.Component {
   };
 
   renderItem = (data, i) => (
-    <View key={i} style={[styles.item, {maxWidth: this.state.itemWidth}]}>
+    <View key={i} style={[styles.item, {width: Dimensions.get('window').width / this.state.itemPerRow - styles.item.margin * 2}]}>
       <TouchableHighlight onPress={() => this.props.itemPressed && this.props.itemPressed(i, data)}>
         <View>
           {
@@ -75,8 +80,8 @@ export default class ImageGrid extends React.Component {
                 shouldPlay
                 isLooping
                 style={{
-                  width: this.state.itemWidth - 10,
-                  height: this.state.itemWidth,
+                  width: Dimensions.get('window').width / this.state.itemPerRow - styles.item.margin * 2,
+                  height: Dimensions.get('window').width / this.state.itemPerRow,
                 }}
               />
             ) : (
@@ -153,6 +158,7 @@ styles = StyleSheet.create({
   },
   item: {
     // flex: 1,
+    backgroundColor: 'red',
     margin: 5,
     backgroundColor: 'white',
     borderRadius: 5,

@@ -18,7 +18,7 @@ export default class Selector extends React.Component {
   render() {
     return (
       <OptionsMenu
-        options={[...this.props.options, 'Cancel']}
+        options={[...this.props.options, ...(Platform.OS === 'ios' ? ['Cancel'] : [])]}
         customButton={(
           <View style={{flexDirection: 'row', ...this.props.style}}>
             <Icon.Ionicons

@@ -4,6 +4,7 @@ import Imgur from '../api/Imgur';
 import ImgurConsts from '../constants/Imgur';
 import {
   StatusBar,
+  Platform,
 } from 'react-native';
 import AutoImage from 'react-native-auto-height-image';
 import User from '../api/User';
@@ -21,6 +22,7 @@ export default class HomeScreen extends FeedScreen {
       headerTitle: <AutoImage
         source={require('../assets/images/logo.png')}
         width={100}
+        style={Platform.OS === 'ios' ? {} : {marginLeft: 10}}
       />
     });
 

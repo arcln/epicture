@@ -3,6 +3,7 @@ import {
   View,
   TextInput,
   Platform,
+  Dimensions,
   StyleSheet,
   StatusBar,
   ActivityIndicator,
@@ -107,7 +108,7 @@ export default class SearchScreen extends React.Component {
               !this.state.loading ? (
                 <Icon.Ionicons
                   size={20}
-                  style={{marginRight: 5}}
+                  style={{marginRight: 5, marginTop: Platform.OS === 'ios' ? 0 : 4}}
                   color='#ccc'
                   name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
                 />
@@ -134,14 +135,15 @@ export default class SearchScreen extends React.Component {
             onChange={value => this.selectorChanged('window', value)}
           />
         </View>
-        <View>
+        <View style={{height: Dimensions.get('window').height}}>
           <ImageGrid
             itemPressed={(_, data) => this.props.navigation.push('Image', {data})}
             sortOptions={null}
+            disableRowSizeSelect={true}
             data={this.state.data}
           />
         </View>
-      </View>
+      </View >
     );
   }
 };
