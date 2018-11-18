@@ -42,13 +42,13 @@ export default class ImageGrid extends React.Component {
       })
       .slice(0, this.state.displayedCount);
 
-    if (newData.length % 2) {
-      newData[newData.length - 1] = undefined;
-    }
+    // if (newData.length % 2) {
+    //   newData[newData.length - 1] = undefined;
+    // }
 
-    if (newData.length < this.state.displayedCount) {
-      newData.push(...Array(this.state.displayedCount - newData.length).map((_, idx) => ({key: newData.length + idx})));
-    }
+    // if (newData.length < this.state.displayedCount) {
+    //   newData.push(...Array(this.state.displayedCount - newData.length).map((_, idx) => ({key: newData.length + idx})));
+    // }
 
     this.setState({displayedData: newData});
   };
