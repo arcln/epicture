@@ -28,6 +28,9 @@ export default class ImageStats extends React.Component {
   }
 
   toggleVote = async (vote) => {
+    if (this.user.account_username == this.props.data.account_url || this.user.account_username == this.props.data.images[0].account_url)
+      return;
+
     let value = await this.imgur.toggleVote(vote, this.state.vote, this.props.data.id);
     this.setState({vote: value});
   }

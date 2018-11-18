@@ -34,8 +34,8 @@ export default class ImageScreen extends React.Component {
   getExt = i => i.link.substr(i.link.lastIndexOf('.'));
 
   async componentDidMount() {
-    const user = await User.get();
-    this.imgur = new AuthImgur(user.access_token);
+    this.user = await User.get();
+    this.imgur = new AuthImgur(this.user.access_token);
 
     this.props.navigation.setParams({title: this.state.data.title})
     this.navListener = this.props.navigation.addListener('didFocus', () => {
@@ -48,6 +48,9 @@ export default class ImageScreen extends React.Component {
   }
 
   async toogleFavorite(id) {
+    if (this.user.account_username == this.state.data.account_url || this.user.account_username == this.state.data.images[0].account_url)
+      return;
+
     let data = (await this.imgur.toogleFavorite({albumHash: id})).data.data;
     await this.setState({favorite: data == 'favorited'});
     this.props.navigation.state.params.data.favorite = this.state.favorite;
