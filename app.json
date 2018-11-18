@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Epicture",
+    "name": "Imgur",
     "description": "The magic of the Internet.",
     "slug": "epicture",
     "privacy": "public",
@@ -26,6 +26,9 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.achaloin.epicture"
+    },
+    "android": {
+      "package": "com.achaloin.epicture"
     }
   }
 }
