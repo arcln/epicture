@@ -30,7 +30,7 @@ export default class UploadPromptScreen extends FeedScreen {
       title: navigation.state.params.title || 'New post',
       ...backBtn,
       headerRight: (
-        <View style={{paddingRight: 5}}>
+        <View style={{paddingRight: 10}}>
           {
             navigation.state.params.loading ? (<ActivityIndicator animating={true} />) : (
               <Button

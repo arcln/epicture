@@ -77,7 +77,7 @@ export default class LandingScreen extends React.Component {
       ]),
     ]);
 
-    setTimeout(() => animation.start(() => this.setState({done: true})), 500);
+    setTimeout(() => animation.start(() => this.setState({done: true})), 1500);
   }
 
   async login() {
