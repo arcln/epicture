@@ -1,63 +1,121 @@
 # Epicture
 
-## Sections
-1. [Introduction](#epicture)
-2. [Sections](#sections)
-3. [Features](#features)
-4. [Usage](#usage)
-    1. [Gradle](#gradle)
-    2. [Expo local developpement build](#expo-local-developpement-build)
-    3. [Expo QR code](#expo-qr-code)
-5. [Imgur API](#imgur-api)
-    1. [Usage](#imgur-usage)
-    2. [Examples](#examples)
-    2. [Utils](#utils)
-    2. [Routes](#routes)
+A cross platform mobile client to browse the Imgur platform, designed to be simple as Instagram.
 
+## Contents
+- [Features](#features)
+- [Getting started](#getting-started)
+    - [Production build](#production-build)
+        - [Remote build](#remote-build)
+        - [Local build (Android)](#local-build-android)
+        - [Local build (iOS)](#local-build-ios)
+    - [Development](#development)
+        - [Local dev server](#local-dev-server)
+        - [Launching from Expo QR code](#launching-from-expo-qr-code)
+- [Imgur API](#imgur-api)
+    - [Imgur Usage](#imgur-usage)
+    - [Examples](#examples)
+    - [Utils](#utils)
+    - [Routes](#routes)
+
+---
 ## Features
 
-## Usage
-### Gradle
-### Expo local developpement build
-To build this project locally with expo, you just to follow these steps
-1. Install [nodejs](https://nodejs.org/en/download/)
-2. Clone Epicture repository
-3. Run `npm i`
-4. Run `npm start`
-5. Follow the guide on how to [scan an expo QR core](#expo-qr-code). Replace the given url by the one shown in your terminal.
+* Display the user's personalized timeline
+* Explore photos with various sorting possibilities
+* Upload pictures (publicly or not)
+* View other user's profile
+* View and manage your profile
+* View and manage your favorites
+* Search for pictures
 
-### Expo QR code
-First, install the expo application on your smartphone [android](https://play.google.com/store/apps/details?id=host.exp.exponent) / [ios](https://itunes.apple.com/app/apple-store/id982107779).
+---
+## Getting started
+
+### Production build
+
+#### Remote build
+
+You can build remotely using Expo's servers and your Expo account.
+
+```bash
+expo login
+
+# Android
+expo build:android
+
+# iOS
+expo build:ios
+```
+
+Then launch the app by following [thoose steps](#launching-from-Expo-qr-code) and replacing the url by your own username.
+
+#### Local build (Android)
+
+To build a production APK for Android, use the Graddle Wrapper tool in the `android/` directory.
+
+```bash
+cd android
+./gradlew build
+```
+
+#### Local build (iOS)
+
+To build a production IPA for iOS, open the Xcode workspace in the `ios/` directory (on a mac).
+
+```bash
+cd ios
+pod install
+open epicture.xcworkspace
+```
+
+### Development
+
+#### Local dev server
+
+You will need a recent node.js version to run this project. Install the dependencies and start the expo development server.
+
+```bash
+yarn
+npm i -g expo-cli
+expo start
+```
+
+Then follow the guide on how to [scan an expo QR core](#launching-from-Expo-qr-code). Replace the given url by the one shown in your terminal.
+
+#### Launching from Expo QR code
+
+First, install the expo application on your smartphone [android](https://play.google.com/store/apps/details?id=host.exp.exponent)/[ios](https://itunes.apple.com/app/apple-store/id982107779).
 Then go to https://expo.io/@onehandedpenguin/epicture and scan the QR code with the application.
 
 ---
 ## Imgur API
 ### Imgur Usage
 ``` js
-    let imgur = new Imgur(clientId, Config.clientSecret, access_token);
+let imgur = new Imgur(clientId, Config.clientSecret, access_token);
 ```
 
 ### Examples
 Construct without access_token and then login
 ``` js
-    let imgur = new Imgur(clientId, Config.clientSecret);
-    let galleryUnauthenticated = await imgur.gallery({page: 2});
+let imgur = new Imgur(clientId, Config.clientSecret);
+let galleryUnauthenticated = await imgur.gallery({page: 2});
 
-    imgur.login(access_token);
-    let galleryAuthenticated = await imgur.toogleFavorite({albumHash: 'hash'});
-    };
+imgur.login(access_token);
+let galleryAuthenticated = await imgur.toogleFavorite({albumHash: 'hash'});
+};
 ```
 
 Construct with access_token and then logout
 ``` js
-    let imgur = new Imgur(clientId, Config.clientSecret, access_token);
-    let favorites = await imgur.favorites({
-      username: 'username',
-      page: 2,
-    });
+let imgur = new Imgur(clientId, Config.clientSecret, access_token);
+let favorites = await imgur.favorites({
+    username: 'username',
+    page: 2,
+});
 
-    imgur.logout();
-    let gallery = await imgur.gallery({page: 5});
+imgur.logout();
+let gallery = await imgur.gallery({page: 5});
 ```
 
 ### Utils
@@ -131,3 +189,4 @@ imgur.galleryImage({galleryImageHash});
 ``` js
 imgur.galleryTag({tagName, sort, window, page});
 ```
+
