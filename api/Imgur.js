@@ -77,21 +77,21 @@ export default class extends ApiBuilder {
           args: [],
           headers: ['bearer']
         },
-        { // https://apidocs.imgur.com/#ee366f7c-69e6-46fd-bf26-e93303f64c84
+        { // https://apidocs.imgur.com/#23e5f110-318a-4872-9888-1bb1f864b360
           name: 'upvote',
           url: suffix => `/3/gallery${suffix}/vote/up`,
           args: [{name: 'galleryHash', type: '/'}],
           headers: ['bearer'],
           httpMethod: 'post'
         },
-        { // https://apidocs.imgur.com/#ee366f7c-69e6-46fd-bf26-e93303f64c84
+        { // https://apidocs.imgur.com/#23e5f110-318a-4872-9888-1bb1f864b360
           name: 'downvote',
           url: suffix => `/3/gallery${suffix}/vote/down`,
           args: [{name: 'galleryHash', type: '/'}],
           headers: ['bearer'],
           httpMethod: 'post'
         },
-        { // https://apidocs.imgur.com/#ee366f7c-69e6-46fd-bf26-e93303f64c84
+        { // https://apidocs.imgur.com/#23e5f110-318a-4872-9888-1bb1f864b360
           name: 'unvote',
           url: suffix => `/3/gallery${suffix}/vote/veto`,
           args: [{name: 'galleryHash', type: '/'}],

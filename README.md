@@ -1,19 +1,17 @@
 # Epicture
 
 ## Sections
-1. [The project](#the-project)
-    1. [Summary](#summary)
-    2. [Features](#features)
-2. [Usage](#usage)
-3. [Imgur API](#imgur-api)
+1. [Description](#epicture)
+2. [Sections](#sections)
+3. [Features](#features)
+4. [Usage](#usage)
+5. [Imgur API](#imgur-api)
     1. [Usage](#imgur-usage)
     2. [Examples](#examples)
     2. [Utils](#utils)
     2. [Routes](#routes)
 
-## The project
-### Summary
-### Features
+## Features
 
 ## Usage
 
@@ -28,23 +26,23 @@
 Construct without access_token and then login
 ``` js
     let imgur = new Imgur(clientId, Config.clientSecret);
-    await imgur.gallery({page: 2});
+    let galleryUnauthenticated = await imgur.gallery({page: 2});
 
     imgur.login(access_token);
-    await imgur.toogleFavorite({albumHash: 'hash'});
+    let galleryAuthenticated = await imgur.toogleFavorite({albumHash: 'hash'});
     };
 ```
 
 Construct with access_token and then logout
 ``` js
     let imgur = new Imgur(clientId, Config.clientSecret, access_token);
-    await imgur.favorites({
+    let favorites = await imgur.favorites({
       username: 'username',
       page: 2,
     });
 
     imgur.logout();
-    await imgur.gallery({page: 5});
+    let gallery = await imgur.gallery({page: 5});
 ```
 
 ### Utils
@@ -55,6 +53,14 @@ imgur.login(access_token);
 Logout
 ``` js
 imgur.logout();
+```
+Toggle vote - shorthand for toggling up/down/unvote. To be used in a button onclick callback for instance
+``` js
+let vote = imgur.toggleVote(vote, currentValue, galleryHash);
+```
+Get auth url - the url to start the authentication protocol, using OAuth 2.0
+``` js
+let authUrl = imgur.getAuthUrl(redirectUrl);
 ```
 
 ### Routes
