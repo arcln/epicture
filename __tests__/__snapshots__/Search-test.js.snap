@@ -30,11 +30,132 @@ exports[`Search snapshot renders the screen 1`] = `
         style={
           Object {
             "fontSize": 18,
+            "marginLeft": 10,
           }
         }
         underlineColorAndroid="transparent"
         value=""
       />
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "justifyContent": "flex-end",
+        "padding": 10,
+      }
+    }
+  >
+    <View>
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+              "marginRight": 10,
+            }
+          }
+        >
+          <Text />
+          <Text
+            style={
+              Object {
+                "color": "#2f95dc",
+              }
+            }
+          >
+             
+            Most recent
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View>
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Text />
+          <Text
+            style={
+              Object {
+                "color": "#2f95dc",
+              }
+            }
+          >
+             
+            All time
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "height": 1334,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "#ededed",
+          "flex": 1,
+          "justifyContent": "flex-start",
+        }
+      }
+    >
+      <View />
+      <View
+        style={
+          Object {
+            "height": 1334,
+            "paddingBottom": 50,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
+        />
+      </View>
     </View>
   </View>
 </View>

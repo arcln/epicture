@@ -80,6 +80,10 @@ export default class UploadPromptScreen extends FeedScreen {
   async publish() {
     let res;
 
+    if (!this.props.navigation) {
+      return;
+    }
+
     this.props.navigation.setParams({loading: true});
     try {
       res = await axios.post(
@@ -119,7 +123,7 @@ export default class UploadPromptScreen extends FeedScreen {
       <ScrollView>
         <StatusBar barStyle='dark-content' />
         <AutoImage
-          source={{uri: this.props.navigation.state.params.uri}}
+          source={{uri: this.props.navigation && this.props.navigation.state.params.uri}}
           width={Dimensions.get('window').width}
         />
         <View style={{padding: 20}}>

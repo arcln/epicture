@@ -8,56 +8,89 @@ exports[`Landing snapshot renders the screen 1`] = `
     }
   }
 >
-  <ExponentLinearGradient
-    colors={
-      Array [
-        4281216642,
-        4279702852,
-      ]
-    }
+  <View
     style={
       Object {
-        "alignItems": "center",
+        "opacity": 0,
+      }
+    }
+  >
+    <ExponentLinearGradient
+      colors={
+        Array [
+          4281216642,
+          4279702852,
+        ]
+      }
+      style={
+        Object {
+          "height": 1334,
+          "position": "absolute",
+          "width": 750,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
         "flex": 1,
         "flexDirection": "column",
-        "justifyContent": "center",
+        "justifyContent": "space-around",
       }
     }
   >
     <View
       style={
         Object {
-          "alignItems": "center",
-          "height": 300,
-          "marginTop": 90,
+          "flex": 2,
+          "flexDirection": "column",
+          "justifyContent": "space-around",
+          "opacity": 0,
         }
       }
     >
-      <Text
+      <View
         style={
           Object {
-            "color": "#fff",
+            "alignItems": "center",
+            "height": 300,
+            "position": "absolute",
+            "top": 599,
+            "transform": Array [
+              Object {
+                "translateY": 0,
+              },
+            ],
           }
         }
       >
-        Welcome to
-      </Text>
-      <Image
-        onError={[Function]}
-        onHeightChange={[Function]}
-        source={1}
-        style={
-          Array [
-            Object {
-              "height": 0,
-              "width": 300,
-            },
-            undefined,
-          ]
-        }
-      />
+        <Image
+          onError={[Function]}
+          onHeightChange={[Function]}
+          source={1}
+          style={
+            Array [
+              Object {
+                "height": 0,
+                "width": 750,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
     </View>
-    <View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "opacity": 0,
+          "paddingBottom": 333.5,
+        }
+      }
+    >
       <View
         accessibilityRole="button"
         accessibilityStates={Array []}
@@ -102,6 +135,76 @@ exports[`Landing snapshot renders the screen 1`] = `
         </View>
       </View>
     </View>
-  </ExponentLinearGradient>
+  </View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "opacity": 0,
+        "position": "absolute",
+        "top": 637,
+        "width": 750,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#fff",
+        }
+      }
+    >
+      The magic of the internet
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "opacity": 1,
+        "position": "absolute",
+        "top": 599,
+        "transform": Array [
+          Object {
+            "translateY": 0,
+          },
+        ],
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "flexDirection": "column",
+          "justifyContent": "space-around",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "height": 300,
+          }
+        }
+      >
+        <Image
+          onError={[Function]}
+          onHeightChange={[Function]}
+          source={1}
+          style={
+            Array [
+              Object {
+                "height": 0,
+                "width": 750,
+              },
+              undefined,
+            ]
+          }
+        />
+      </View>
+    </View>
+  </View>
 </View>
 `;

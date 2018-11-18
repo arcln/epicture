@@ -1,5 +1,5 @@
 import React from 'react';
-import Grid from 'react-native-grid-component';
+import Grid from '../vendor/philr/react-native-grid-component';
 import {
   StyleSheet,
   TouchableHighlight,
@@ -136,10 +136,10 @@ export default class ImageGrid extends React.Component {
         <View style={{height: Dimensions.get('window').height, paddingBottom: 50}}>
           <Grid
             renderItem={this.renderItem}
-            data={this.state.displayedData}
+            data={this.state.displayedData || []}
             itemsPerRow={this.state.itemPerRow}
             onEndReached={this.endReached}
-            renderPlaceholder={() => <View style={{backgroundColor: '#ededed'}} key={Math.random()}></View>}
+          // renderPlaceholder={() => <View style={{backgroundColor: '#ededed'}} key={Math.random()}></View>}
           />
         </View>
       </View>

@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Uploading snapshot renders the screen 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <ExponentLinearGradient
+    colors={
+      Array [
+        4278190080,
+        4278190080,
+      ]
+    }
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "flexDirection": "column",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "height": 300,
+        }
+      }
+    >
+      <Image
+        onError={[Function]}
+        onHeightChange={[Function]}
+        source={1}
+        style={
+          Array [
+            Object {
+              "height": 0,
+              "width": 300,
+            },
+            undefined,
+          ]
+        }
+      />
+      <Text
+        style={
+          Object {
+            "color": "#fff",
+            "marginTop": 100,
+          }
+        }
+      >
+        Your image is being processed...
+      </Text>
+    </View>
+  </ExponentLinearGradient>
+</View>
+`;

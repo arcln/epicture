@@ -8,5 +8,90 @@ exports[`Explore snapshot renders the screen 1`] = `
       "flex": 1,
     }
   }
-/>
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ededed",
+        "flex": 1,
+        "justifyContent": "flex-start",
+      }
+    }
+  >
+    <View>
+      <View
+        style={
+          Object {
+            "alignContent": "center",
+            "flexDirection": "row",
+            "justifyContent": "flex-end",
+            "padding": 10,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View>
+            <View
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text />
+                <Text
+                  style={
+                    Object {
+                      "color": "#2f95dc",
+                    }
+                  }
+                >
+                   
+                  Popular
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "height": 1334,
+          "paddingBottom": 50,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      />
+    </View>
+  </View>
+</View>
 `;
