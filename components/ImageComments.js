@@ -46,8 +46,8 @@ export default class FavoritesScreen extends React.Component {
     let res = await this.imgur.comment({image_id: this.props.galleryHash, comment: this.state.comment});
     this.setState({
       data: [{author: this.state.user.account_username, comment: this.state.comment}, ...this.state.data],
-      comment: '',
     });
+    this.onCommentChange('');
   }
 
   async fetchData() {
