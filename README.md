@@ -70,6 +70,7 @@ To build a production APK for Android, use the Graddle Wrapper tool in the `andr
 
 ```bash
 cd android
+export ANDROID_HOME=~/Library/Android
 ./gradlew build
 ```
 
