@@ -27,8 +27,8 @@ export default class ImageStats extends React.Component {
     this.setState({vote: this.props.data.vote});
   }
 
-  toogleVote = async (vote) => {
-    let value = await this.imgur.toogleVote(vote, this.state.vote, this.props.data.id);
+  toggleVote = async (vote) => {
+    let value = await this.imgur.toggleVote(vote, this.state.vote, this.props.data.id);
     this.setState({vote: value});
   }
 
@@ -48,7 +48,7 @@ export default class ImageStats extends React.Component {
           </View>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity onPress={() => this.toogleVote('up')} style={styles.infoButton}>
+          <TouchableOpacity onPress={() => this.toggleVote('up')} style={styles.infoButton}>
             <Icon.Ionicons
               size={this.props.size + this.platformSettings.arrowsSize}
               color={this.state.vote == 'up' ? 'green' : this.props.color}
@@ -58,7 +58,7 @@ export default class ImageStats extends React.Component {
               <Text style={{fontSize: this.props.size, color: this.props.color}}>{this.props.data.ups || 0}</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.toogleVote('down')} style={styles.infoButton}>
+          <TouchableOpacity onPress={() => this.toggleVote('down')} style={styles.infoButton}>
             <Icon.Ionicons
               size={this.props.size + this.platformSettings.arrowsSize}
               color={this.state.vote == 'down' ? 'red' : this.props.color}

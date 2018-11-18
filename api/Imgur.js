@@ -154,7 +154,7 @@ export default class extends ApiBuilder {
     this.token = null;
   }
 
-  toogleVote = async (vote, currentValue, id) => {
+  toggleVote = async (vote, currentValue, id) => {
     if (currentValue == vote) {
       await this.unvote({galleryHash: id});
       return null;
