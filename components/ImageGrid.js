@@ -23,7 +23,7 @@ export default class ImageGrid extends React.Component {
   };
 
   getExt = e => {
-    console.log(e.images && e.images[0] && e.images[0].link.substr(e.images[0].link.lastIndexOf('.')))
+    // console.log(e.images && e.images[0] && e.images[0].link.substr(e.images[0].link.lastIndexOf('.')))
     return e.images && e.images[0] && e.images[0].link.substr(e.images[0].link.lastIndexOf('.'))
   };
 
@@ -33,7 +33,7 @@ export default class ImageGrid extends React.Component {
         if (!e.images) {
           e = {images: [e]};
         }
-        console.log(e.images[0].link)
+        // console.log(e.images[0].link)
         return e;
       })
       .filter(e => {
