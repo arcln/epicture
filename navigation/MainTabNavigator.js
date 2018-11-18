@@ -69,7 +69,7 @@ const UploadStack = createStackNavigator(
   {mode: 'modal'},
 );
 
-UploadStack.navigationOptions = createTabLabel('add-circle-outline', 34, 5);
+UploadStack.navigationOptions = createTabLabel('add-circle-outline', 34);
 
 const SearchStack = createStackNavigator({
   Search: {

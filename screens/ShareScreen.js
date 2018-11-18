@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   View,
+  ScrollView,
   Button,
   StyleSheet,
   Platform,
@@ -108,14 +109,14 @@ export default class UploadPromptScreen extends FeedScreen {
     Alert.alert(
       'Success',
       'Your image will be soon in the gallery!',
-      [{text: 'OK'}, {text: 'Copy Link', onPress: () => Clipboard.setString(res.data.data.link)}],
+      [{text: 'OK'}, {text: 'Copy Link', onPress: () => Clipboard.setString(this.props.navigation.state.params.link)}],
       {cancelable: false},
     );
   }
 
   render() {
     return (
-      <View>
+      <ScrollView>
         <StatusBar barStyle='dark-content' />
         <AutoImage
           source={{uri: this.props.navigation.state.params.uri}}
@@ -135,7 +136,7 @@ export default class UploadPromptScreen extends FeedScreen {
             placeholder='Tags (comma separated)'
           />
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }

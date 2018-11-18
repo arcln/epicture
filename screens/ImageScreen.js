@@ -58,6 +58,7 @@ export default class ImageScreen extends React.Component {
         <StatusBar barStyle='dark-content' />
         {this.state.data.images.map((image, idx) => this.getExt(image) === '.mp4' ? (
           <Video
+            key={idx}
             source={{uri: image.link}}
             rate={1.0}
             volume={1.0}

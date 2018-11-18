@@ -24,16 +24,16 @@ import AutoImage from 'react-native-auto-height-image';
 export default class UploadPromptScreen extends FeedScreen {
   static navigationOptions = ({navigation}) => {
     return {
-      title: 'Upload',
+      title: 'New post',
       headerRight: (
         <View style={{paddingRight: 5}}>
           <Button
-            title='Next'
+            title='Upload'
             onPress={() => navigation.state.params.upload()}
-            disabled={false
-              // !navigation.state.params ||
-              // !navigation.state.params.pick ||
-              // !navigation.state.params.title
+            disabled={
+              !navigation.state.params ||
+              !navigation.state.params.pick ||
+              !navigation.state.params.title
             }
           />
         </View>
@@ -93,6 +93,7 @@ export default class UploadPromptScreen extends FeedScreen {
           uri: this.state.pick.uri,
           title: this.state.title,
           imageHash: res.data.data.id,
+          link: res.data.data.link,
         });
       };
 
@@ -100,9 +101,9 @@ export default class UploadPromptScreen extends FeedScreen {
         'Upload success',
         'Your image is stored privately.',
         [
-          {text: 'Pubish', onPress: publish},
-          {text: 'Copy Link', onPress: () => Clipboard.setString(res.data.data.link)},
           {text: 'OK'},
+          {text: 'Copy Link', onPress: () => Clipboard.setString(res.data.data.link)},
+          {text: 'Publish', onPress: publish},
         ],
         {cancelable: false},
       );
@@ -137,10 +138,14 @@ export default class UploadPromptScreen extends FeedScreen {
         Permissions.CAMERA_ROLL,
       );
       if (status === 'granted') {
-        pick = await Expo.ImagePicker.launchCameraAsync();
+        pick = await Expo.ImagePicker.launchCameraAsync({
+          mediaTypes: Expo.ImagePicker.MediaTypeOptions.Photos,
+          base64: true,
+        });
       }
     }
 
+    console.log(pick);
     if (pick.base64) {
       await this.setState({pick});
       this.props.navigation.setParams({pick: true});
@@ -152,7 +157,7 @@ export default class UploadPromptScreen extends FeedScreen {
       <View>
         <StatusBar barStyle='dark-content' />
         <OptionsMenu
-          options={['From camera', 'From library', 'Cancel']}
+          options={['From camera', 'From library', ...(Platform.OS === 'ios' ? ['Cancel'] : [])]}
           ref={menu => (this.menu = menu)}
           actions={[
             () => this.go('camera'),
