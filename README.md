@@ -1,10 +1,13 @@
 # Epicture
 
 ## Sections
-1. [Description](#epicture)
+1. [Introduction](#epicture)
 2. [Sections](#sections)
 3. [Features](#features)
 4. [Usage](#usage)
+    1. [Gradle](#gradle)
+    2. [Expo local developpement build](#expo-local-developpement-build)
+    3. [Expo QR code](#expo-qr-code)
 5. [Imgur API](#imgur-api)
     1. [Usage](#imgur-usage)
     2. [Examples](#examples)
@@ -14,6 +17,18 @@
 ## Features
 
 ## Usage
+### Gradle
+### Expo local developpement build
+To build this project locally with expo, you just to follow these steps
+1. Install [nodejs](https://nodejs.org/en/download/)
+2. Clone Epicture repository
+3. run `npm i`
+4. run npm start
+5. Follow the guide on how to [scan an expo QR core](#expo-qr-code). Replace the given url by the one shown in your terminal.
+
+### Expo QR code
+First, install the expo application on your smartphone [android](https://play.google.com/store/apps/details?id=host.exp.exponent) / [ios](https://itunes.apple.com/app/apple-store/id982107779).
+Then go to https://expo.io/@onehandedpenguin/epicture and scan the QR code with the application.
 
 ---
 ## Imgur API
