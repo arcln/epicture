@@ -49,6 +49,10 @@ export default class UploadPromptScreen extends FeedScreen {
   imgur = new Imgur(ImgurConsts.clientId, ImgurConsts.clientSecret);
 
   componentDidMount() {
+    if (!this.props.navigation) {
+      return;
+    }
+
     this.props.navigation.setParams({upload: () => this.upload()});
   }
 

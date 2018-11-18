@@ -5,56 +5,12 @@ exports[`renders correctly 1`] = `
   style={
     Object {
       "flexDirection": "row",
-      "justifyContent": "space-between",
+      "justifyContent": "flex-end",
+      "padding": 10,
     }
   }
 >
-  <View
-    style={
-      Object {
-        "backgroundColor": "transparent",
-        "flexDirection": "row",
-        "paddingLeft": 5,
-        "paddingRight": 5,
-      }
-    }
-  >
-    <View
-      style={
-        Object {
-          "justifyContent": "center",
-        }
-      }
-    >
-      <Text />
-    </View>
-    <View
-      style={
-        Object {
-          "justifyContent": "center",
-          "paddingLeft": 6,
-        }
-      }
-    >
-      <Text
-        style={
-          Object {
-            "color": "#eeffaa",
-            "fontSize": 42,
-          }
-        }
-      >
-        22222200
-      </Text>
-    </View>
-  </View>
-  <View
-    style={
-      Object {
-        "flexDirection": "row",
-      }
-    }
-  >
+  <View>
     <View
       accessible={true}
       isTVSelectable={true}
@@ -66,35 +22,33 @@ exports[`renders correctly 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "backgroundColor": "transparent",
-          "flexDirection": "row",
           "opacity": 1,
-          "paddingLeft": 5,
-          "paddingRight": 5,
         }
       }
     >
-      <Text />
       <View
         style={
           Object {
-            "justifyContent": "center",
-            "paddingLeft": 5,
+            "flexDirection": "row",
+            "marginRight": 10,
           }
         }
       >
+        <Text />
         <Text
           style={
             Object {
-              "color": "#eeffaa",
-              "fontSize": 42,
+              "color": "#2f95dc",
             }
           }
         >
-          1200
+           
+          Most recent
         </Text>
       </View>
     </View>
+  </View>
+  <View>
     <View
       accessible={true}
       isTVSelectable={true}
@@ -106,32 +60,27 @@ exports[`renders correctly 1`] = `
       onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "backgroundColor": "transparent",
-          "flexDirection": "row",
           "opacity": 1,
-          "paddingLeft": 5,
-          "paddingRight": 5,
         }
       }
     >
-      <Text />
       <View
         style={
           Object {
-            "justifyContent": "center",
-            "paddingLeft": 5,
+            "flexDirection": "row",
           }
         }
       >
+        <Text />
         <Text
           style={
             Object {
-              "color": "#eeffaa",
-              "fontSize": 42,
+              "color": "#2f95dc",
             }
           }
         >
-          200
+           
+          All time
         </Text>
       </View>
     </View>

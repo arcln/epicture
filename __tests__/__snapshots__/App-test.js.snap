@@ -137,7 +137,35 @@ exports[`App snapshot renders the root without loading screen 1`] = `
                         "flex": 1,
                       }
                     }
-                  />
+                  >
+                    <View
+                      style={
+                        Object {
+                          "backgroundColor": "#ededed",
+                          "flex": 1,
+                          "justifyContent": "flex-start",
+                        }
+                      }
+                    >
+                      <View />
+                      <View
+                        style={
+                          Object {
+                            "height": 1334,
+                            "paddingBottom": 50,
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            Object {
+                              "flex": 1,
+                            }
+                          }
+                        />
+                      </View>
+                    </View>
+                  </View>
                 </View>
               </View>
               <View
@@ -226,7 +254,7 @@ exports[`App snapshot renders the root without loading screen 1`] = `
                                   "height": 100,
                                   "width": 100,
                                 },
-                                undefined,
+                                Object {},
                               ]
                             }
                           />
@@ -606,7 +634,7 @@ exports[`App snapshot renders the root without loading screen 1`] = `
             <View
               style={
                 Object {
-                  "paddingTop": 5,
+                  "paddingTop": 10,
                 }
               }
             >
@@ -651,7 +679,7 @@ exports[`App snapshot renders the root without loading screen 1`] = `
             <View
               style={
                 Object {
-                  "paddingTop": 5,
+                  "paddingTop": 10,
                 }
               }
             >
