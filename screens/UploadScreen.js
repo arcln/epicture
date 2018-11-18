@@ -26,7 +26,7 @@ export default class UploadPromptScreen extends FeedScreen {
     return {
       title: 'New post',
       headerRight: (
-        <View style={{paddingRight: 5}}>
+        <View style={{paddingRight: 10}}>
           <Button
             title='Upload'
             onPress={() => navigation.state.params.upload()}

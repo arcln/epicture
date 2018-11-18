@@ -66,12 +66,18 @@ Then launch the app by following [thoose steps](#launching-from-Expo-qr-code) an
 
 ### Local build (Android)
 
-To build a production APK for Android, use the Graddle Wrapper tool in the `android/` directory.
+To build the project for Android, use the Graddle Wrapper tool in the `android/` directory.
 
 ```bash
 cd android
 export ANDROID_HOME=~/Library/Android
 ./gradlew build
+```
+
+To generate a production APK, run use:
+
+```bash
+./gradlew assembleRelease
 ```
 
 ### Local build (iOS)
